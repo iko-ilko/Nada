@@ -3,5 +3,9 @@
 tmp.txt
 tmp.jsonl
 sample.pdf
-chroma_db/
-data/
+*chroma_db*/
+*data*/
+
+*.jpg
+*.webp
+.claude/
