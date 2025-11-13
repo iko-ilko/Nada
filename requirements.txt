@@ -1,0 +1,10 @@
+langchain
+langchain-community
+langchain-openai
+langchain-text-splitters
+langchain-classic
+langchain-huggingface
+chromadb
+sentence-transformers # 오픈소스 임베딩 모델
+pypdf
+python-dotenv

@@ -1,0 +1,43 @@
+# claude code
+.claude/
+.mcp.json
+
+**/.env
+**/.env.local
+**/.kiss.env
+**/.keys.env
+**/google-services.json
+
+# Python (fastapi)
+**/__pycache__/
+**/*.pyc
+**/venv/
+
+# # Flutter (Frontend)
+# **/.dart_tool/
+# **/.flutter-plugins
+# **/.flutter-plugins-dependencies
+# **/.packages
+# **/.pub-cache/
+# **/build/
+
+# # iOS
+# **/ios/Pods/
+# **/ios/Flutter/Generated.xcconfig
+# **/ios/Flutter/ephemeral/
+# **/ios/Runner/GeneratedPluginRegistrant.*
+
+# # Android
+# **/android/local.properties
+# **/android/.gradle
+# **/android/captures/
+# **/android/key.properties
+# **/*.jks
+
+# 공통
+**/.DS_Store
+**/*.log
+**/node_modules/
+**/.vscode/
+**/.idea/
+prev/
