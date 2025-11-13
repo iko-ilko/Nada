@@ -3,6 +3,7 @@
 청킹, 임베딩, 벡터 DB 저장/로드를 담당합니다.
 """
 import os
+import time
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from src.config import Config
@@ -49,6 +50,9 @@ class VectorStoreManager:
         """
         print(f"\n💾 벡터 DB에 저장 중...")
         print(f"   저장 위치: {self.persist_dir}")
+        print(f"   청크 개수: {len(chunks)}개")
+
+        start_time = time.time()
 
         self.vectorstore = Chroma.from_documents(
             documents=chunks,
@@ -57,7 +61,10 @@ class VectorStoreManager:
             collection_name=self.collection_name
         )
 
+        elapsed_time = time.time() - start_time
+
         print(f"✅ 벡터 DB 저장 완료!")
+        print(f"   소요 시간: {elapsed_time:.2f}초")
         return self.vectorstore
 
     def load_vectorstore(self):

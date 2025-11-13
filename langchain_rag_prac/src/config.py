@@ -5,21 +5,22 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=str(Path(os.environ.get('PROJECT_ROOT')) / ".env"))
+PROJECT_ROOT = Path(os.environ.get('PROJECT_ROOT', Path(__file__).parent.parent))
+load_dotenv(dotenv_path=str(PROJECT_ROOT / ".env"))
 
 class Config:
     """애플리케이션 설정"""
 
-    # 데이터 경로
-    DATA_DIR = "./data/papers"
-    CHROMA_DB_PATH = "./chroma_db"
+    # 데이터 경로 (절대경로)
+    DATA_DIR = str(PROJECT_ROOT / "data" / "papers")
+    CHROMA_DB_PATH = str(PROJECT_ROOT / "chroma_db")
 
     # 문서 처리 설정
     CHUNK_SIZE = 800
     CHUNK_OVERLAP = 150 # 나뉘어지는, 겹쳐지는 부분을 의미하는듯
 
     # 임베딩 설정
-    EMBEDDING_MODEL = "intfloat/multilingual-e5-base" #"all-MiniLM-L6-v2"
+    EMBEDDING_MODEL = "intfloat/multilingual-e5-large" #"all-MiniLM-L6-v2"
 
     # LLM 설정
     LLM_MODEL = "gpt-4o-mini"

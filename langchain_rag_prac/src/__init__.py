@@ -5,7 +5,7 @@ from src.config import Config
 from src.loader import DocumentLoader
 from src.embedder import EmbeddingManager
 from src.db import TextChunker, VectorStoreManager
-from src.rag import RAGChain, VectorSearcher
+from src.rag import MultimodalRAGChain
 
 __all__ = [
     "Config",
@@ -13,6 +13,5 @@ __all__ = [
     "EmbeddingManager",
     "TextChunker",
     "VectorStoreManager",
-    "RAGChain",
-    "VectorSearcher",
+    "MultimodalRAGChain",
 ]
