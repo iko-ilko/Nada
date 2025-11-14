@@ -13,16 +13,19 @@ from src.config import Config
 class AnalysisLogger:
     """분석 결과 로깅"""
 
-    def __init__(self, log_dir: str = "logs"):
+    def __init__(self, log_dir: str = None):
         """
         AnalysisLogger 초기화
 
         Args:
-            log_dir: 로그 저장 디렉토리
+            log_dir: 로그 저장 디렉토리 (기본값: PROJECT_ROOT/logs)
         """
+        if log_dir is None:
+            project_root = Path(os.environ.get('PROJECT_ROOT', Path.cwd()))
+            log_dir = str(project_root / "logs")
+
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(exist_ok=True)
-        print(f"✅ 로깅 디렉토리: {self.log_dir.absolute()}")
 
     def save_analysis(
         self,
@@ -31,22 +34,9 @@ class AnalysisLogger:
         search_results: List[Any],
         analysis: Dict[str, Any],
         image_detail: str,
-        model: str
+        model: str = None  # Config에서 가져올 수 있으므로 옵션
     ) -> str:
-        """
-        분석 결과를 로그 파일에 저장합니다.
-
-        Args:
-            image_url: 분석한 이미지 URL
-            user_state: 사용자 상태 설명
-            search_results: RAG 검색 결과 (Document 객체 리스트)
-            analysis: 분석 결과 (JSON)
-            image_detail: 이미지 디테일 레벨
-            model: 사용한 LLM 모델
-
-        Returns:
-            str: 저장된 로그 파일 경로
-        """
+        """분석 결과를 로그 파일에 저장합니다."""
         # 타임스탬프
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         log_filename = f"analysis_{timestamp}.json"

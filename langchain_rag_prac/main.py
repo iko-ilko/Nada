@@ -1,6 +1,6 @@
 """
 RAG 시스템 메인 파일
-모든 모듈을 조합해서 실행합니다.
+멀티모달 이미지 분석 파이프라인을 실행합니다.
 """
 from pathlib import Path
 import sys
@@ -12,78 +12,45 @@ if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 os.environ['PROJECT_ROOT'] = str(project_root)
 
+from langchain_core.runnables import RunnableLambda
+from langchain_core.output_parsers import StrOutputParser
+
 from src.config import Config
-from src.loader import DocumentLoader
-from src.embedder import EmbeddingManager
-from src.db import TextChunker, VectorStoreManager
-from src.rag import MultimodalRAGChain
+from src.indexer import DocumentIndexer, EmbeddingManager, VectorStoreManager
+from src.vision import format_docs, create_multimodal_message, extract_json
+from src.logger import AnalysisLogger
+from src.llm import get_llm
 
 
-def _prepare_vectorstore():
+def setup_vectorstore():
     """
-    벡터 DB 생성/로드
+    벡터 DB 준비
     기존 DB가 있으면 재구성 여부를 묻고, 없으면 자동 생성
     """
     print("=" * 60)
-    print("🔄 벡터 DB 준비 중...")
+    print("📚 벡터 DB 준비 중...")
     print("=" * 60)
 
-    # 설정 검증
     Config.validate()
 
-    vectorstore = None
+    indexer = DocumentIndexer()
 
-    # 벡터 DB가 있으면 재구성 여부 확인
+    # 기존 벡터 DB 확인
     if os.path.exists(Config.CHROMA_DB_PATH):
-        print(f"\n📂 기존 벡터 DB 발견: {Config.CHROMA_DB_PATH}")
         response = input("벡터 DB를 재구성하시겠습니까? (y/n): ").strip().lower()
+        if response != 'y':
+            # 기존 DB 사용
+            return indexer.get_or_create_vectorstore()
 
-        if response == 'n':
-            # 기존 벡터 DB 사용
-            print("✅ 기존 벡터 DB를 사용합니다")
-            embedding_manager = EmbeddingManager()
-            embeddings = embedding_manager.get_embeddings()
-            db_manager = VectorStoreManager(embeddings)
-            try:
-                vectorstore = db_manager.load_vectorstore()
-            except Exception as e:
-                print(f"❌ 벡터 DB 로드 실패: {e}")
-                print("   벡터 DB를 재구성합니다...")
-                vectorstore = None
-        # y 또는 기타 입력이면 재구성
-
-    # 벡터 DB가 없거나 사용자가 재구성을 선택한 경우
-    if vectorstore is None:
-        # 1️⃣ 문서 로드
-        print("\n1️⃣ 문서 로드 중...")
-        loader = DocumentLoader()
-        documents = loader.load_documents()
-
-        if len(documents) == 0:
-            print("\n❌ 문서를 로드할 수 없습니다")
-            return None
-
-        # 2️⃣ 청킹
-        print("\n2️⃣ 문서 청킹 중...")
-        chunker = TextChunker()
-        chunks = chunker.chunk_documents(documents)
-
-        # 3️⃣ 임베딩 + 벡터 DB
-        print("\n3️⃣ 벡터 DB 생성 중...")
-        embedding_manager = EmbeddingManager()
-        embeddings = embedding_manager.get_embeddings()
-
-        db_manager = VectorStoreManager(embeddings)
-        vectorstore = db_manager.create_vectorstore(chunks)
-
-    print("\n✅ 벡터 DB 준비 완료!")
-    print("=" * 60)
-    return vectorstore
+    # 새로 생성
+    return indexer.build_vectorstore()
 
 
-def load_prompt(path: str) -> str:
-    p = Path(path)
-    text = p.read_text(encoding="utf-8")
+def load_prompt(filename: str) -> str:
+    """프로젝트 루트 기준으로 프롬프트 파일 로드"""
+    project_root = Path(os.environ.get('PROJECT_ROOT', Path.cwd()))
+    prompt_path = project_root / filename
+    text = prompt_path.read_text(encoding="utf-8")
     return text
 
 
@@ -93,45 +60,31 @@ def main(
     image_detail: str = "low"
 ):
     """
-    멀티모달 RAG 파이프라인
-    이미지 분석 + 문서 검색 + LLM을 통한 미용 코칭
+    이미지를 분석하고 미용 코칭을 제공합니다.
 
     Args:
         image_url: 분석할 이미지 URL
         user_state: 사용자 상태 설명
         image_detail: 이미지 디테일 레벨 ("low" 또는 "high")
     """
-    # 1️⃣ 벡터 DB 준비 (없으면 자동 생성, 있으면 재구성 여부 묻기)
-    _prepare_vectorstore()
+    # 벡터 DB 준비
+    setup_vectorstore()
 
-    print("\n" + "=" * 60)
-    print("🔍 멀티모달 RAG 파이프라인")
-    print("=" * 60)
-
-    Config.validate()
-
-    # 이미지 디테일 설정 변경 (필요시)
+    # 이미지 디테일 설정 (필요시)
     if image_detail != Config.IMAGE_DETAIL:
-        print(f"\n⚙️  이미지 디테일 설정 변경: {Config.IMAGE_DETAIL} → {image_detail}")
         Config.IMAGE_DETAIL = image_detail
 
-    print(f"\n📝 입력 파라미터:")
-    print(f"   이미지 URL: {image_url[:50]}...")
-    print(f"   사용자 상태: {user_state}")
-    print(f"   이미지 디테일: {image_detail}")
+    # 분석 파라미터
+    print(f"\n📝 분석 요청:")
+    print(f"   이미지: {image_url[:50]}...")
+    print(f"   상태: {user_state}")
+    print(f"   디테일: {image_detail}")
 
-    # 파이프라인 구성
-    print(f"\n{'='*60}")
-    print("🔄 파이프라인 구성 중...")
-    print(f"{'='*60}")
-
-    # 임베딩 모델 로드
-    print(f"\n1️⃣ 임베딩 모델 로드")
+    # 분석 파이프라인 준비
+    print(f"\n🔧 분석 파이프라인 준비...")
     embedding_manager = EmbeddingManager()
     embeddings = embedding_manager.get_embeddings()
 
-    # 벡터 스토어 로드
-    print(f"\n2️⃣ 벡터 스토어 로드")
     db_manager = VectorStoreManager(embeddings)
     try:
         db_manager.load_vectorstore()
@@ -139,75 +92,133 @@ def main(
         print(f"❌ 벡터 DB 로드 실패: {e}")
         return
 
-    # Retriever 생성
-    print(f"\n3️⃣ Retriever 생성")
     retriever = db_manager.get_retriever()
-    print(f"   검색 타입: similarity")
-    print(f"   Top-K: {Config.TOP_K}")
-
-    # MultimodalRAGChain 생성
-    print(f"\n4️⃣ MultimodalRAGChain 구성")
-    multimodal_chain = MultimodalRAGChain(retriever)
-
-    # 시스템 프롬프트 로드
-    print(f"\n5️⃣ 시스템 프롬프트 로드")
     system_prompt = load_prompt("src/prompt/response_ko.prt")
+
+    # LLM 설정
+    llm = get_llm()
+
+    # LCEL 체인 구성: 각 단계가 명확한 책임을 가짐
+    chain = (
+        retriever  # 1. retriever: user_state로 문서 검색
+        | RunnableLambda(format_docs)  # 2. format_docs: 검색 결과 포맷팅
+        | RunnableLambda(
+            lambda formatted_docs: {
+                "formatted_docs": formatted_docs,
+                "user_state": user_state,
+                "image_url": image_url,
+                "detail": image_detail,
+                "system_prompt": system_prompt,
+            }
+        )  # 3. 딕셔너리 구성
+        | RunnableLambda(create_multimodal_message)  # 4. 메시지 생성
+        | llm  # 5. LLM 호출
+        | StrOutputParser()  # 6. 응답 파싱
+    )
 
     # 파이프라인 실행
     print(f"\n{'='*60}")
-    print("🚀 파이프라인 실행")
+    print("🚀 분석 시작")
     print(f"{'='*60}")
 
     try:
-        result = multimodal_chain.query_with_image_and_state(
-            image_url=image_url,
-            user_state=user_state,
-            system_prompt=system_prompt
-        )
+        # 체인 호출: retriever가 첫 단계이므로 user_state 문자열만 전달
+        raw_response = chain.invoke(user_state)
+
+        # JSON 추출
+        analysis = extract_json(raw_response)
+
+        # 검색 결과 가져오기 (결과 출력용)
+        search_results = retriever.invoke(user_state)
 
         # 결과 출력
         print(f"\n{'='*60}")
         print("📊 분석 결과")
         print(f"{'='*60}")
 
-        # 1️⃣ 검색된 문서
-        print(f"\n1️⃣ 검색된 문서 ({len(result['search_results'])}개):")
-        if result["papers_info"]:
-            for paper in result["papers_info"]:
+        # 검색된 문서
+        print(f"\n📚 검색된 문서 ({len(search_results)}개):")
+        papers_info = _extract_papers_info(search_results)
+        if papers_info:
+            for paper in papers_info:
                 print(f"\n   [{paper['rank']}] {paper['source']}")
                 print(f"       페이지: {paper['page']} | 타입: {paper['type']}")
                 print(f"       미리보기: {paper['content_preview'][:100]}...")
-                content_len = len(paper.get('full_content', ''))
-                print(f"       컨텍스트 길이: {content_len} 글자")
         else:
             print(f"   검색된 문서가 없습니다.")
 
-        # 2️⃣ LLM 분석 결과
-        print(f"\n2️⃣ LLM 분석 결과:")
-        print(f"   모델: {result['model']}")
-        print(f"   이미지 디테일: {result['image_detail']}")
+        # LLM 분석 결과
+        print(f"\n🤖 분석:")
+        print(f"   모델: {Config.LLM_MODEL}")
+        print(f"   이미지 디테일: {image_detail}")
 
         import json
-        if isinstance(result["analysis"], dict):
-            print(json.dumps(result["analysis"], indent=4, ensure_ascii=False))
+        if isinstance(analysis, dict):
+            print(json.dumps(analysis, indent=4, ensure_ascii=False))
         else:
-            print(result["analysis"])
+            print(analysis)
 
-        # 3️⃣ 결과 저장
-        print(f"\n3️⃣ 결과 저장:")
-        print(f"   로그 파일: {result['log_path']}")
+        # 결과 저장
+        logger = AnalysisLogger()
+        log_path = logger.save_analysis(
+            image_url=image_url,
+            user_state=user_state,
+            search_results=search_results,
+            analysis=analysis,
+            image_detail=image_detail,
+            model=Config.LLM_MODEL
+        )
+
+        print(f"\n💾 저장:")
+        print(f"   {log_path}")
 
         print(f"\n{'='*60}")
-        print(f"✅ 파이프라인 실행 완료!")
+        print(f"✅ 완료!")
         print(f"{'='*60}")
 
-        return result
+        return {
+            "image_url": image_url,
+            "user_state": user_state,
+            "search_results": search_results,
+            "papers_info": papers_info,
+            "analysis": analysis,
+            "model": Config.LLM_MODEL,
+            "image_detail": image_detail,
+            "raw_response": raw_response,
+            "log_path": log_path
+        }
 
     except Exception as e:
         print(f"❌ 오류 발생: {e}")
         import traceback
         traceback.print_exc()
         return None
+
+
+def _extract_papers_info(search_results):
+    """
+    검색된 논문들의 정보를 추출합니다.
+
+    Args:
+        search_results: Document 객체 리스트
+
+    Returns:
+        List: 논문 정보 리스트
+    """
+    papers_info = []
+
+    for i, doc in enumerate(search_results, 1):
+        paper_info = {
+            "rank": i,
+            "source": doc.metadata.get("source", "Unknown"),
+            "type": doc.metadata.get("type", "Unknown"),
+            "page": doc.metadata.get("page", "Unknown"),
+            "content_preview": doc.page_content[:300] if hasattr(doc, 'page_content') else "",
+            "full_content": doc.page_content if hasattr(doc, 'page_content') else "",
+        }
+        papers_info.append(paper_info)
+
+    return papers_info
 
 
 if __name__ == "__main__":
