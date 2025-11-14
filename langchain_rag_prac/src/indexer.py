@@ -26,7 +26,11 @@ class DocumentLoader:
         self.folder_path = folder_path or Config.DATA_DIR
 
     def load_documents(self):
-        """폴더 안의 모든 PDF와 TXT 파일을 로드"""
+        """폴더 안의 모든 PDF와 TXT 파일을 로드
+
+        PDF 파일은 페이지들을 병합하여 한 문서로 만듭니다.
+        (청킹 전에 페이지를 나누면 의미 있는 청킹이 불가능)
+        """
         documents = []
 
         if not os.path.exists(self.folder_path):
@@ -42,17 +46,24 @@ class DocumentLoader:
             print("⚠️  문서가 없습니다. PDF 또는 TXT 파일을 추가해주세요.")
             return documents
 
-        # PDF 로드
+        # PDF 로드: 페이지들을 병합하여 한 문서로
         for pdf_file in pdf_files:
             try:
                 loader = PyPDFLoader(str(pdf_file))
-                docs = loader.load()
+                pages = loader.load()
 
-                for doc in docs:
-                    doc.metadata["source"] = pdf_file.name
-                    doc.metadata["type"] = "pdf"
+                if pages:
+                    # 모든 페이지의 내용을 합침
+                    merged_content = "\n\n".join([page.page_content for page in pages])
 
-                documents.extend(docs)
+                    # 메타데이터는 첫 페이지 기준
+                    merged_doc = pages[0]
+                    merged_doc.page_content = merged_content
+                    merged_doc.metadata["source"] = pdf_file.name
+                    merged_doc.metadata["type"] = "pdf"
+                    merged_doc.metadata["total_pages"] = len(pages)
+
+                    documents.append(merged_doc)
             except Exception as e:
                 print(f"   ❌ {pdf_file.name}: {e}")
 
