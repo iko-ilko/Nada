@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-11-12T14:56:14.803655",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "all-MiniLM-L12-v2",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 300,
+      "CHUNK_OVERLAP": 50,
+      "TOP_K": 3
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/upload/v1756530521/qmfzfedoxpkt1phjn1ag.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "어제 저녁에 라면을 먹어서 부은것같아"
+    },
+    "search": {
+      "total_results": 3,
+      "papers": [
+        {
+          "rank": 1,
+          "source": "전문가에서 선호되는 턱선(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 11,
+          "content_preview": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth"
+        },
+        {
+          "rank": 2,
+          "source": "전문가에서 선호되는 턱선(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 11,
+          "content_preview": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth"
+        },
+        {
+          "rank": 3,
+          "source": "형태 측정 분석과 딥 러닝 얼굴 매력도 요인 조사에 대한 계산적 접근법(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 3,
+          "content_preview": "used in the LMM analysis.\nResults and discussion\nFor the Asian images, first, because none of the obtained results had a mean familiarity score of 3 or higher \n(M = 1.77, SD = 0.21, min = 1.17, max = 2.39), it was decided to use all the obtained data, judging that celebri -"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Appearance_Coaching": {
+      "Hair": {
+        "status": "헤어는 자연스럽게 떨어져 있으며, 약간의 수분이 느껴집니다. 전체적으로 부드러운 질감이지만, 약간의 기름기가 보입니다.",
+        "improvement_tips": [
+          "가벼운 샴푸로 머리를 감고, 수분을 보충하기 위해 컨디셔너를 사용하세요.",
+          "헤어 제품을 최소화하여 자연스러운 스타일을 유지하세요."
+        ]
+      },
+      "Skin": {
+        "status": "피부는 약간의 광택이 있으며, 부풀어 오른 느낌이 있습니다. 수분이 부족해 보이지 않지만, 라면 섭취로 인해 일시적인 붓기가 있을 수 있습니다.",
+        "improvement_tips": [
+          "찬물로 얼굴을 씻어 붓기를 완화하세요.",
+          "수분 크림을 사용하여 피부를 촉촉하게 유지하세요."
+        ]
+      },
+      "Contour": {
+        "status": "얼굴 윤곽은 부풀어 오른 느낌이 있으며, 턱선과 볼 부분이 강조되어 보입니다. 전체적으로 대칭이 유지되고 있습니다.",
+        "improvement_tips": [
+          "얼굴 마사지로 혈액 순환을 촉진하여 붓기를 줄이세요.",
+          "차가운 스푼이나 아이 패치를 사용해 눈가의 부기를 완화하세요."
+        ]
+      }
+    }
+  }
+}

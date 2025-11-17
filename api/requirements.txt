@@ -1,0 +1,32 @@
+# FastAPI & Web
+fastapi
+uvicorn
+pydantic
+python-multipart
+
+# LangChain
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-huggingface
+langchain-text-splitters
+
+# Vector Database
+chromadb
+langchain-chroma
+
+# ML & Embeddings
+transformers
+sentence-transformers
+huggingface-hub
+
+# PDF Processing
+pypdf
+
+# Cloud Storage
+cloudinary
+
+# Utilities
+python-dotenv
+pytz

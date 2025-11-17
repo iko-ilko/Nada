@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-11-15T17:31:10.178441",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "intfloat/multilingual-e5-large",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 800,
+      "CHUNK_OVERLAP": 150,
+      "TOP_K": 3
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/upload/v1756530521/qmfzfedoxpkt1phjn1ag.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "피부가 더 좋아지고 싶어."
+    },
+    "search": {
+      "total_results": 3,
+      "papers": [
+        {
+          "rank": 1,
+          "source": "얼굴 근육 운동 기구가 얼굴 회춘에 미치는 효과-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.33156487345695496,
+          "content_preview": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmu",
+          "full_content": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmuscle function. Skin Res Technol. 2009;15(3):299-305.\n43. Aminian-Far A, Hadian MR, Olyaei G, Talebian S, \nBakhtiary AH. Whole-body vibration and the prevention \nand treatment of delayed-onset muscle soreness. J Athl \nTrain. 2011;46(1):43-49.\n44. Bosco C, Colli R, Introini E, et al. Adaptive responses of \nhuman skeletal muscle to vibration exposure. Clin Physiol. \n1999;19(2):183-187.\n45. Kisner C, Colby LA. Resistance Exercise for Impaired Muscle"
+        },
+        {
+          "rank": 2,
+          "source": "좋은 피부란(ㅍㅂ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.3457973599433899,
+          "content_preview": "doi:10.5826/dpc.0804a05\n75. Matias AR, Ferreira M, Costa P, Neto P. Skin colour, skin redness and \nmelanin biometric measurements: comparison study between Antera \n(®) 3D, Mexameter( ®) and Colorimeter( ®). Skin Res Technol . \n2015;21(3):346–362. doi:10.1111/srt.12199\n76. Giordano CN, Matarasso SL, ",
+          "full_content": "doi:10.5826/dpc.0804a05\n75. Matias AR, Ferreira M, Costa P, Neto P. Skin colour, skin redness and \nmelanin biometric measurements: comparison study between Antera \n(®) 3D, Mexameter( ®) and Colorimeter( ®). Skin Res Technol . \n2015;21(3):346–362. doi:10.1111/srt.12199\n76. Giordano CN, Matarasso SL, Ozog DM. Injectable and topical neu -\nrotoxins in dermatology: basic science, anatomy, and therapeutic \nagents. J Am Acad Dermatol . 2017;76(6):1013–1024. doi:10.1016/j. \njaad.2016.11.022\n77. Wanitphakdeedecha R, Kaewkes A, Ungaksornpairote C, \nLimsaengurai S, Panich U, Manuskiatti W. The effect of botulinum \ntoxin type A in different dilution on the contraction of fibroblast-In \nvitro Study. J Cosmet Dermatol. 2019;18(5):1215–1223. doi:10.1111/ \njocd.13058"
+        },
+        {
+          "rank": 3,
+          "source": "피부노화방지전략(ㅍㅂ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.3464922606945038,
+          "content_preview": "erties of human skin: an in vivo study. J Invest \nDermatol 1989; 93:353-7; PMID:2768836; http://\ndx.doi.org/10.1111/1523-1747.ep12280259\n20.\n Y\naar M, Gilchrest BA. Aging of skin. In Fitzpatrick’s \nDermatology in General Medicine Vol 2, 5th edn. \nMcGraw-Hill:New York, 1999; 1697–1706\n21.\n B\naumann L",
+          "full_content": "erties of human skin: an in vivo study. J Invest \nDermatol 1989; 93:353-7; PMID:2768836; http://\ndx.doi.org/10.1111/1523-1747.ep12280259\n20.\n Y\naar M, Gilchrest BA. Aging of skin. In Fitzpatrick’s \nDermatology in General Medicine Vol 2, 5th edn. \nMcGraw-Hill:New York, 1999; 1697–1706\n21.\n B\naumann L. Skin ageing and its treatment. J Pathol \n2007; 211:241-51; PMID:17200942; http://dx.doi.\norg/10.1002/path.2098\n22.\n W\natson RE, Craven NM, Kang S, Jones CJ, Kielty \nCM, Griffiths CE. A short-term screening protocol, \nusing fibrillin-1 as a reporter molecule, for photoag-\ning repair agents. J Invest Dermatol 2001; 116:672-8; \nPMID:11348454; http://dx.doi.org/10.1046/j.1523-\n1747.2001.01322.x\n23.\n Contet-A\nudonneau JL, Jeanmaire C, Pauly G. A histo-"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Hair": {
+      "status": "헤어는 약간의 수분이 있는 상태로 보이며, 자연스럽게 흐르는 스타일이 돋보입니다.",
+      "improvement_tips": [
+        "수분이 많은 헤어 제품을 사용하여 머리카락에 윤기를 더해보세요.",
+        "정기적으로 트리트먼트를 통해 모발의 건강을 유지하세요."
+      ]
+    },
+    "Skin": {
+      "status": "피부는 약간의 땀과 광택이 있으며, 건강한 느낌이지만 개선의 여지가 있습니다.",
+      "improvement_tips": [
+        "매일 아침과 저녁에 수분 크림을 사용하여 피부의 수분을 유지하세요.",
+        "주 1-2회 각질 제거를 통해 피부 결을 부드럽게 만들어 보세요."
+      ]
+    },
+    "Contour": {
+      "status": "얼굴 윤곽이 자연스럽고 균형 잡혀 있으며, 부드러운 인상을 줍니다.",
+      "improvement_tips": [
+        "하이라이터를 사용하여 광대뼈와 턱선을 강조해 보세요.",
+        "얼굴 마사지로 혈액 순환을 촉진하여 더욱 생기 있는 윤곽을 만들어 보세요."
+      ]
+    }
+  }
+}

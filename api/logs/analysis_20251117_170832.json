@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-11-17T17:08:32.959654",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "intfloat/multilingual-e5-large",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 800,
+      "CHUNK_OVERLAP": 150,
+      "TOP_K": 3
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/authenticated/s--A8vY9VpY--/v1763366901/2b7e38f7_2025-11-17.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "오늘 비맞고 운동했는데 내일 얼굴 안부을까?"
+    },
+    "search": {
+      "total_results": 3,
+      "papers": [
+        {
+          "rank": 1,
+          "source": "얼굴 근육 운동 기구가 얼굴 회춘에 미치는 효과-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.32755404710769653,
+          "content_preview": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmu",
+          "full_content": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmuscle function. Skin Res Technol. 2009;15(3):299-305.\n43. Aminian-Far A, Hadian MR, Olyaei G, Talebian S, \nBakhtiary AH. Whole-body vibration and the prevention \nand treatment of delayed-onset muscle soreness. J Athl \nTrain. 2011;46(1):43-49.\n44. Bosco C, Colli R, Introini E, et al. Adaptive responses of \nhuman skeletal muscle to vibration exposure. Clin Physiol. \n1999;19(2):183-187.\n45. Kisner C, Colby LA. Resistance Exercise for Impaired Muscle"
+        },
+        {
+          "rank": 2,
+          "source": "얼굴 근육 운동 기구가 얼굴 회춘에 미치는 효과-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.3578172028064728,
+          "content_preview": "Sanita. 2012;48(3):292-299.\n 6. Rohrich RJ, Pessa JE. The fat compartments of the face: \nanatomy and clinical implications for cosmetic surgery. \nPlast Reconstr Surg. 2007;119(7):2219-2227; discussion \n2228.\n 7. Van Borsel J, De Vos MC, Bastiaansen K, Welvaert J, \nLambert J. The effectiveness of fac",
+          "full_content": "Sanita. 2012;48(3):292-299.\n 6. Rohrich RJ, Pessa JE. The fat compartments of the face: \nanatomy and clinical implications for cosmetic surgery. \nPlast Reconstr Surg. 2007;119(7):2219-2227; discussion \n2228.\n 7. Van Borsel J, De Vos MC, Bastiaansen K, Welvaert J, \nLambert J. The effectiveness of facial exercises for \nfacial rejuvenation: a systematic review. Aesthet Surg J. \n2014;34(1):22-27.\n 8. De Vos MC, Van den Brande H, Boone B, Van Borsel J. \nFacial exercises for facial rejuvenation: a control group \nstudy. Folia Phoniatr Logop. 2013;65(3):117-122.\n 9. van Lieshout PH, Bose A, Namasivayam AK. Physiological \neffects of an 8-week mechanically aided resistance \nfacial exercise program. Int J Orofacial Myology. \n2002;28:49-73."
+        },
+        {
+          "rank": 3,
+          "source": "얼굴 근육 운동 기구가 얼굴 회춘에 미치는 효과-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.3617323637008667,
+          "content_preview": "Editorial Decision date: June 19, 2017; online publish-ahead-of-print January 20, 2018.\nAn everlasting youthful appearance has been pursued by \nhumans of nearly all cultures for several centuries. Aging \nis an inescapable part of human life that leaves traces on \nthe face in the form of wrinkles and",
+          "full_content": "Editorial Decision date: June 19, 2017; online publish-ahead-of-print January 20, 2018.\nAn everlasting youthful appearance has been pursued by \nhumans of nearly all cultures for several centuries. Aging \nis an inescapable part of human life that leaves traces on \nthe face in the form of wrinkles and sagging skin.\n1,2 As life \nexpectancy increases in many parts of the world, a youth-\nful appearance has become even more highly valued,\n3-5 \nand considerable efforts are being devoted to improving \nand correcting facial aging.\nFrom the Department of Physical Therapy, Yonsei University, Wonju, \nSouth Korea.\nCorresponding Author:\nDr Oh-yun Kwon, 234 Maeji-ri, Heungeop-Myeon, Wonju, \nKangwon-Do, 220-710, Laboratory of Kinetic Exercise based on"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Hair": {
+      "status": "머리는 약간 젖어 있으며, 자연스럽게 떨어지는 스타일이 보입니다. 비와 운동으로 인해 머리카락의 질감이 촉촉하고 부드럽게 느껴질 수 있습니다.",
+      "improvement_tips": [
+        "부드러운 헤어 제품을 사용하여 머리를 건조하지 않게 유지하세요.",
+        "운동 후 샤워 시 찬물로 헹구어 머리카락의 수분을 유지하세요."
+      ]
+    },
+    "Skin": {
+      "status": "피부는 운동 후 약간의 땀으로 인해 촉촉하게 보이며, 자연스러운 광택이 느껴집니다. 비에 맞아 피부가 수분을 흡수했을 가능성이 있습니다.",
+      "improvement_tips": [
+        "운동 후에는 반드시 부드러운 클렌저로 세안하여 피부의 노폐물을 제거하세요.",
+        "수분 공급을 위해 수분 크림을 꼭 발라 피부의 수분을 유지하세요."
+      ]
+    },
+    "Contour": {
+      "status": "얼굴은 운동으로 인해 약간의 붓기가 있을 수 있지만, 자연스러운 윤곽이 유지되고 있습니다. 피부의 광택이 얼굴을 더욱 돋보이게 합니다.",
+      "improvement_tips": [
+        "차가운 물로 얼굴을 헹구어 붓기를 줄이는 데 도움을 주세요.",
+        "꿀과 오이 슬라이스를 이용한 팩으로 피부를 진정시키세요."
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-11-17T17:54:25.317940",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "intfloat/multilingual-e5-large",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 800,
+      "CHUNK_OVERLAP": 150,
+      "TOP_K": 3
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/authenticated/s--EBNXnmRe--/v1763369655/bdab742f_2025-11-17.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "ㅁㄴㅇㅁㄴㅇ"
+    },
+    "search": {
+      "total_results": 3,
+      "papers": [
+        {
+          "rank": 1,
+          "source": "3차원 윤곽선을 통해 평가한 여성 얼굴 매력도(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.35139480233192444,
+          "content_preview": "239–242. [CrossRef] [PubMed]\n© 2018 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access\narticle distributed under the terms and conditions of the Creative Commons Attribution\n(CC BY) license (http://creativecommons.org/licenses/by/4.0/).",
+          "full_content": "239–242. [CrossRef] [PubMed]\n© 2018 by the authors. Licensee MDPI, Basel, Switzerland. This article is an open access\narticle distributed under the terms and conditions of the Creative Commons Attribution\n(CC BY) license (http://creativecommons.org/licenses/by/4.0/)."
+        },
+        {
+          "rank": 2,
+          "source": "피부톤과헤어컬러의조화,색상선택을위한모델(ㅎㅇ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.3640616536140442,
+          "content_preview": "37.\n29. Baras D, Caisey L. Skin and lip technology. In: Kelly AP, T aylor S,editors.\nDermatology for skin of color. Berkshire, UK: McGraw Hill profes-\nsional; 2009. p. 541–51.\n30. Qiao Y, Atis B, Cointereau-Chardon S. et al. Developing the most inclu-\nsive and relevant liquid foundation ranges for m",
+          "full_content": "37.\n29. Baras D, Caisey L. Skin and lip technology. In: Kelly AP, T aylor S,editors.\nDermatology for skin of color. Berkshire, UK: McGraw Hill profes-\nsional; 2009. p. 541–51.\n30. Qiao Y, Atis B, Cointereau-Chardon S. et al. Developing the most inclu-\nsive and relevant liquid foundation ranges for multicultural consumers,\nIFSCC Congress Yokohama, 2020.\n31. Corbett JF. Chemistry of hair colorant processes. Science as an aid to\nformulation and development. J Soc Cosmet Chem. 1984;35:297–310.\n32. Zviak C, Milléquant J. Hair colouring. In: Bouillon C, Wilkinson J, edi-\ntors. The science of hair care. 2nd ed. Boca Raton: T aylor and Francis\nGroup; 2005.\n33. Ito S, Wakamatsu K. Diversity of human hair pigmentation as studied\nby chemical analysis of eumelanin and pheomelanin. J Eur Acad Der-"
+        },
+        {
+          "rank": 3,
+          "source": "얼굴 근육 운동 기구가 얼굴 회춘에 미치는 효과-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": "Unknown",
+          "similarity_score": 0.3693140745162964,
+          "content_preview": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmu",
+          "full_content": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmuscle function. Skin Res Technol. 2009;15(3):299-305.\n43. Aminian-Far A, Hadian MR, Olyaei G, Talebian S, \nBakhtiary AH. Whole-body vibration and the prevention \nand treatment of delayed-onset muscle soreness. J Athl \nTrain. 2011;46(1):43-49.\n44. Bosco C, Colli R, Introini E, et al. Adaptive responses of \nhuman skeletal muscle to vibration exposure. Clin Physiol. \n1999;19(2):183-187.\n45. Kisner C, Colby LA. Resistance Exercise for Impaired Muscle"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Hair": {
+      "status": "헤어는 약간의 습기가 있는 상태로, 자연스러운 흐름이 느껴집니다. 현재 스타일은 간결하고 세련되며, 약간의 볼륨감이 있습니다.",
+      "improvement_tips": [
+        "샴푸 후 모발에 수분을 공급하기 위해 보습 트리트먼트를 사용하세요.",
+        "매일 아침 스타일링 전에 열 보호제를 사용하여 모발을 보호하세요."
+      ]
+    },
+    "Skin": {
+      "status": "피부는 약간의 땀으로 인해 촉촉해 보이며, 자연스러운 윤기가 돌고 있습니다. 수분 상태는 양호하지만, 여드름이나 잡티가 있을 경우 관리가 필요할 수 있습니다.",
+      "improvement_tips": [
+        "매일 아침과 저녁으로 수분 크림을 발라 피부 보습을 유지하세요.",
+        "주 1-2회 각질 제거 제품을 사용하여 피부 결을 개선하세요."
+      ]
+    },
+    "Contour": {
+      "status": "얼굴 윤곽은 대칭적이며, 눈, 코, 입의 비율이 조화롭게 보입니다. 턱선과 이마 곡선도 자연스럽습니다.",
+      "improvement_tips": [
+        "얼굴 마사지로 혈액 순환을 촉진하고 부기를 줄이세요.",
+        "수분 섭취를 늘려 피부 탄력을 높이고 윤곽을 더욱 뚜렷하게 만들어보세요."
+      ]
+    }
+  }
+}
