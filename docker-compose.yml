@@ -1,0 +1,16 @@
+services:
+  api:
+    build: ./api
+    container_name: nada
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api/data:/app/data
+      - ./api/chroma_db:/app/chroma_db
+      - ./api/logs:/app/logs
+    env_file:
+      - ./api/.env
+    environment:
+      - PROJECT_ROOT=/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
