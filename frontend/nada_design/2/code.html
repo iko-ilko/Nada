@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>직업 입력</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<style type="text/tailwindcss">
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+        @layer base {
+            :root {
+                --primary-color: #81c147;
+            }
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "var(--primary-color)", // A bright, encouraging green
+                        "background-light": "#F9FEF6", // A very light green tint
+                        "background-dark": "#121212", // Standard dark mode background
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-light-primary": "#1C1C1E",
+                        "text-dark-primary": "#E1E1E1",
+                        "text-light-secondary": "#6C757D",
+                        "text-dark-secondary": "#9E9E9E",
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans KR", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem", // 16px
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark">
+<div class="mx-auto flex h-full max-w-sm flex-col px-6 pt-16">
+<div class="flex flex-col items-center">
+<div class="relative mb-8 h-[7.5rem] w-[7.5rem]">
+<div class="absolute inset-0 rounded-full bg-[#E0F3D1]"></div>
+<img alt="다양한 직업을 나타내는 아이콘들: 책, 음표, 노트북, 비행기" class="absolute inset-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI0DgLGmPnHme8NZOB6VrIEm1xnu25QtpcgdtOALPej5QDxPrZO0EHUQeldIO31y7fqpKVmmbkywRilcxSBf-kIqGUhTgHoV71APMq5xd-yquEdIg0UCHb2rRmoOUwRSVDu2_jpMHCk0fMjPwgQEyUTvw-UxU6FxA2fxqY-YlX4DnVyK0f56I-7useN_xxgSFeBqdm6rIoCpW_2Nosy7BT7LO1244Z4a3-lKDC7QSdOJ2zBDvQ4PYzGluQa7G2OXOs2p0Pqj7n1AY"/>
+</div>
+<h1 class="text-2xl font-bold text-text-light-primary dark:text-text-dark-primary">직업을 알려주세요</h1>
+<p class="mt-2 text-center text-sm text-text-light-secondary dark:text-text-dark-secondary">직업에 맞는 실용적인 개선 팁을 드려요</p>
+</div>
+<main class="mt-12 flex-grow">
+<div class="space-y-3">
+<input class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3.5 text-sm placeholder-gray-400 focus:border-primary focus:ring-primary dark:border-zinc-600 dark:bg-surface-dark dark:text-white dark:placeholder-zinc-400" placeholder="자유롭게 적어주세요!" type="text"/>
+<div class="grid grid-cols-3 gap-2">
+<button class="rounded-full border border-gray-300 bg-white px-3 py-2 text-center text-sm text-text-light-secondary dark:border-zinc-600 dark:bg-surface-dark dark:text-text-dark-secondary">회사원</button>
+<button class="rounded-full border border-gray-300 bg-white px-3 py-2 text-center text-sm text-text-light-secondary dark:border-zinc-600 dark:bg-surface-dark dark:text-text-dark-secondary">학생</button>
+<button class="rounded-full border border-gray-300 bg-white px-3 py-2 text-center text-sm text-text-light-secondary dark:border-zinc-600 dark:bg-surface-dark dark:text-text-dark-secondary">프리랜서</button>
+</div>
+</div>
+</main>
+<div class="pb-8 pt-4">
+<button class="w-full rounded-full bg-primary py-4 text-center font-bold text-white shadow-lg shadow-primary/30">
+            다음
+        </button>
+</div>
+</div>
+
+</body></html>
