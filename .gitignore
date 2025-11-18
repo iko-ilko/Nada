@@ -8,7 +8,7 @@ CLAUDE.md
 **/.kiss.env
 **/.keys.env
 **/google-services.json
-
+**/.venv
 # project
 **/chroma_db
 **/data/papers
