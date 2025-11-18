@@ -1,0 +1,126 @@
+{
+  "timestamp": "2025-11-18T22:19:08.637685",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "intfloat/multilingual-e5-large",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 1000,
+      "CHUNK_OVERLAP": 200,
+      "TOP_K": 7
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/authenticated/s--6ttwgK8U--/v1763471927/c98485ca_2025-11-18.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "안녕"
+    },
+    "search": {
+      "total_results": 7,
+      "llm_raw_response": {
+        "image_analysis": {
+          "hair": "헤어는 짧은 길이로 보이며, 자연스러운 컬이 있는 스타일입니다. 볼륨감은 적당하며, 색상은 어두운 톤입니다. 전체적으로 건강해 보이며, 특별한 손상이나 두피 문제는 눈에 띄지 않습니다.",
+          "skin": "피부는 밝은 톤을 가지고 있으며, 수분감이 있는 듯 보입니다. 광택은 적당하고 결이 매끄럽습니다. 잡티나 붉은기 같은 특이사항은 보이지 않으며, 전반적인 피부 상태는 양호해 보입니다.",
+          "contour": "얼굴형은 자연스러운 타원형으로 보입니다. 눈, 코, 입의 비율이 균형 잡혀 있으며, 턱선은 뚜렷하고 볼살은 적당하여 전체적으로 조화로운 인상을 줍니다."
+        },
+        "search_query": "헤어 관리, 피부 상태, 얼굴 윤곽과 관련된 최신 연구 논문. keywords: hair condition, skin hydration, facial contour, beauty standards, dermatology."
+      },
+      "papers": [
+        {
+          "rank": 1,
+          "source": "data/코로나19 이후 MZ세대 남·여의 화장품 구매동향 비교 연구.pdf",
+          "page": 15,
+          "dense_score": 0.36170169711112976,
+          "bm25_score": null,
+          "rrf_score": 0.01639344262295082,
+          "content_preview": "안진정\n195",
+          "full_content": "안진정\n195"
+        },
+        {
+          "rank": 2,
+          "source": "data/남성의 투블럭 커트 스타일 이용실태 및 선호도.pdf",
+          "page": 12,
+          "dense_score": null,
+          "bm25_score": null,
+          "rrf_score": 0.01639344262295082,
+          "content_preview": "[13] K. H. Park, (2017). A study of middle-aged\nMen’s hair style : Focused on Flattop pattern,\nM.S Thesis, Konkuk University, 1-67.\n[14] J. E. Kim, (2014). Analysis of Method and\nFavorite\nof 20’s College\nStudent Men Hair\nStyle, M.S Thesis, Women's University, 1-33.\n[15]\nK.\nS.\nKim,\n(2012).\nStudy on\nW",
+          "full_content": "[13] K. H. Park, (2017). A study of middle-aged\nMen’s hair style : Focused on Flattop pattern,\nM.S Thesis, Konkuk University, 1-67.\n[14] J. E. Kim, (2014). Analysis of Method and\nFavorite\nof 20’s College\nStudent Men Hair\nStyle, M.S Thesis, Women's University, 1-33.\n[15]\nK.\nS.\nKim,\n(2012).\nStudy on\nWomen's\nBenefits, Interest, and Preferences Regarding\nHairstyles according to Lifestyles, M.S Thesis,\nSeoKyeong University, 1-67.\n[16] H. J. Kim, H. S. Lee, (2015). Preference of 20’s\nmen hair style(mostly about two block style),\nJournal of Korean Society Beauty Art, 9(1), 15-24.\n심은홍(Eun-Hong Sim)\n[힉생회원]\n․2015년2월: 평생교육진흥원\n․2015년3월～현재: 동신대학\n교뷰티미용학과재학\n․2009년2월～현재: 심은홍미\n용기능장의집\n․관심분야: 헤어미용, 미용마케팅\n․E-Mail : isn6685@nate.com\n임순녀(Sun-Nye Lim)\n[정회원]\n․1996년2월: 광주대학교의상\n학과(미술학학사)\n․2001년2월: 조선대학교보건\n학과(보건학석사)\n․2013년2월: 전남대학교향장\n품학과(향장학박사)\n․2013년3월～현재: 동신대학\n교뷰티미용학과교수\n․관심분야: 헤어미용, 미용마케팅\n․E-Mail : isn6685@nate.com"
+        },
+        {
+          "rank": 3,
+          "source": "data/스칼프 세럼을 이용한 두피 경혈 마사지가 안면 피부 개선에 미치는 영향.pdf",
+          "page": 15,
+          "dense_score": 0.4012628495693207,
+          "bm25_score": null,
+          "rrf_score": 0.016129032258064516,
+          "content_preview": "148\n한국인체미용예술학회지제26권제3호(2025.",
+          "full_content": "148\n한국인체미용예술학회지제26권제3호(2025."
+        },
+        {
+          "rank": 4,
+          "source": "data/여드름 피부 청소년의 외모스트레스가 대인관계에 미치는 영향_외모만족도의 매개효과.pdf",
+          "page": 5,
+          "dense_score": null,
+          "bm25_score": null,
+          "rrf_score": 0.016129032258064516,
+          "content_preview": "factor\n개방성\n만족\n친근감\n의사소통\n이해성\n다른 사람에 대한나의 표현이나 개방성은 많다.\n.783\n.180\n.221\n.119\n나는다른 사람에 대한 긍정적인 느낌을 느낀다.\n.589\n.215\n.326\n-.138\n나는 인간으로서의 나 자신에 대해서 만족스럽다.\n-.027\n.719\n.423\n-.049\n다른 사람과 나의 관계는 만족스럽다.\n.405\n.700\n-.030\n.011\n나는다른 사람에 대하여 친근감을 느낀다.\n.317\n.626\n.177\n-.016\n나는 인간으로서 다른 사람들에 대하여 만족스럽다.\n.215\n.594\n.217\n.1",
+          "full_content": "factor\n개방성\n만족\n친근감\n의사소통\n이해성\n다른 사람에 대한나의 표현이나 개방성은 많다.\n.783\n.180\n.221\n.119\n나는다른 사람에 대한 긍정적인 느낌을 느낀다.\n.589\n.215\n.326\n-.138\n나는 인간으로서의 나 자신에 대해서 만족스럽다.\n-.027\n.719\n.423\n-.049\n다른 사람과 나의 관계는 만족스럽다.\n.405\n.700\n-.030\n.011\n나는다른 사람에 대하여 친근감을 느낀다.\n.317\n.626\n.177\n-.016\n나는 인간으로서 다른 사람들에 대하여 만족스럽다.\n.215\n.594\n.217\n.139\n나는다른 사람과 대화시에 어려움을 느낀다.\n-.004\n-.003\n.952\n.052\n나는다른 사람의 이야기를 듣는것이 쉽다.\n.225\n-.013\n.760\n.108\n나는다른 사람의 느낌을 이해하는 것이 쉽다.\n-.019\n-.104\n-.091\n.614\n나는내 자신의 감정을 이해한다.\n.377\n-.052\n-.315\n.596\n고유값\n1.080\n1.961\n2.077\n1.259\n분산(%)\n10.802\n19.615\n20.775\n12.589\n누적(%)\n10.802\n30.417\n51.192\n63.781\n신뢰도(Cronbach’sα)\n.577\n.591\n.572\n.545\n전체신뢰도\n.674\nKMO와 Bartlett 검정\nKMO=.879, χ²=605.670, p<.001\nTable 4. Reliability and Validity of Interpersonal Relationships"
+        },
+        {
+          "rank": 5,
+          "source": "data/국내 브랜드별 헤어 케어 제품 디자인 이미지 특성 및 트렌드 동향 분석.pdf",
+          "page": 19,
+          "dense_score": 0.4028133749961853,
+          "bm25_score": null,
+          "rrf_score": 0.015873015873015872,
+          "content_preview": "238\n한국인체미용예술학회지 제26권 제2호 (2025.",
+          "full_content": "238\n한국인체미용예술학회지 제26권 제2호 (2025."
+        },
+        {
+          "rank": 6,
+          "source": "data/화장품 응용을 위한 에센셜 오일과 단일 성분 항료에 대한 항균력 비교 연구.pdf",
+          "page": 4,
+          "dense_score": null,
+          "bm25_score": null,
+          "rrf_score": 0.015625,
+          "content_preview": "알려져 있다(Sharmeen et al., 2021; Alves-Silva et al., 2021). 또한, A. niger에서는 spearmint oil와 peppermint oil에서 우수한 항\n균력을 나타냈다.\n2) 14종 단일성분 향료의 항균력 시험결과\n전체적인 균주에서 citral, damascene, D-limonene, phenylethyl\nalcohol, hydroxycitronellal이 우수한 항균력을 나타냈다(Table 5). S.\naureus와 C. albicans에서는 citral, D-limonene, hy",
+          "full_content": "알려져 있다(Sharmeen et al., 2021; Alves-Silva et al., 2021). 또한, A. niger에서는 spearmint oil와 peppermint oil에서 우수한 항\n균력을 나타냈다.\n2) 14종 단일성분 향료의 항균력 시험결과\n전체적인 균주에서 citral, damascene, D-limonene, phenylethyl\nalcohol, hydroxycitronellal이 우수한 항균력을 나타냈다(Table 5). S.\naureus와 C. albicans에서는 citral, D-limonene, hydroxycitronellal\n에서 우수한 항균 효과가 있었다. 유통 화장품에서 규제대상균주 S.\naureus, E. coli, P. aeruginosa에서 phenylethyl alcohol이 공통적으\n로항균 효과가 우수하게 나타났다. 또한, C. albicans에서 항균효과가좋게 나타난 phenylethyl alcohol은 피부상재균 S. epidermidis\n에는항균 효과가 거의없는 것으로 나타났다. M. furfur에서는\naurantiol이 A. niger에서는 geraniol, benzyl acetate가 매우 우수한\n항진균 효과가 있었다.\n본 연구에서 paper disk에 액체로 된 시료만 사용할 수 있으므\n로 실험에 사용되는 용매에 녹지않아 석출되는 시료나 점성이나 휘\n발성이 큰 시료는 항균력을 측정하기 어려운 문제점이 있어추후\nminimal inhibitory concentration (MIC) 방법으로 수행할 필요성이\n있다.\nConclusion\n아토피 피부염 관련 균주인 S. aureus와 C. albicans에서 linalool\n이 공통적으로 들어가는 cinnamon bark oil과 neroli oil에서 항균 활성이 크게 나타났고, 단일물질에는 citral, D-limonene,\nhydroxycitronellal에서 유사한 항균효과가 있었다. C. albicans, A."
+        },
+        {
+          "rank": 7,
+          "source": "data/미용 실무 현장에서 요구되는 헤어 컬러 디자인 연구 방향.pdf",
+          "page": 11,
+          "dense_score": 0.4064270853996277,
+          "bm25_score": null,
+          "rrf_score": 0.015625,
+          "content_preview": "272\n한국인체미용예술학회지 제24권 제3호 (2023.9)",
+          "full_content": "272\n한국인체미용예술학회지 제24권 제3호 (2023.9)"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Hair": {
+      "status": "현재 헤어는 자연스러운 컬과 볼륨이 있으며, 건강한 느낌을 주고 있습니다. 다만, 약간의 푸석한 느낌이 감지됩니다.",
+      "improvement_tips": [
+        "수분이 풍부한 헤어 마스크를 사용하여 주 1회 깊은 보습을 해주세요.",
+        "스타일링 제품 사용 후에는 반드시 샴푸로 깨끗이 세척해 모발의 건강을 유지하세요."
+      ]
+    },
+    "Skin": {
+      "status": "피부는 전체적으로 건강해 보이며, 약간의 유분이 느껴집니다. 결이 매끄럽고 광택이 있습니다.",
+      "improvement_tips": [
+        "매일 아침 저녁으로 수분 크림을 발라 피부의 수분을 유지하세요.",
+        "주 2~3회 각질 제거를 통해 피부 결을 개선하세요."
+      ]
+    },
+    "Contour": {
+      "status": "얼굴 윤곽은 균형 잡힌 비율을 가지고 있으며, 자연스러운 입체감이 느껴집니다. 다만, 볼 살이 조금 부드럽게 보입니다.",
+      "improvement_tips": [
+        "하루 10분 정도의 얼굴 마사지로 탄력을 높이고 혈액 순환을 촉진하세요.",
+        "자외선 차단제를 매일 사용하여 피부 손상을 예방하세요."
+      ]
+    }
+  }
+}

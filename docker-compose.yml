@@ -1,16 +1,29 @@
 services:
-  api:
-    build: ./api
-    container_name: nada
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./api/data:/app/data
-      - ./api/chroma_db:/app/chroma_db
-      - ./api/logs:/app/logs
-    env_file:
-      - ./api/.env
-    environment:
-      - PROJECT_ROOT=/app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
-    restart: unless-stopped
+    api:
+        build: ./api
+        container_name: nada
+        ports:
+            - '8000:8000'
+        volumes:
+            - ./api/data:/app/data
+            - ./api/chroma_db:/app/chroma_db
+            - ./api/logs:/app/logs
+        env_file:
+            - ./api/.env
+        environment:
+            - PROJECT_ROOT=/app
+        command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+        restart: unless-stopped
+    web:
+        build: ./web
+        container_name: nada-web
+        ports:
+            - '5173:5173'
+        volumes:
+            - ./web:/app
+        env_file:
+            - ./web/.env
+        environment:
+            - REACT_APP_API_URL=http://localhost:8000
+        command: sh -c "npm install && npm start"
+        restart: unless-stopped
