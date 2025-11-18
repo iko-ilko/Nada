@@ -45,7 +45,7 @@ def create_multimodal_message(inputs: Dict[str, Any]) -> List:
             "user_state": str,
             "image_url": str,
             "detail": str,
-            "system_prompt": str
+            "analysis_prompt": str
         }
 
     Returns:
@@ -55,12 +55,12 @@ def create_multimodal_message(inputs: Dict[str, Any]) -> List:
     user_state = inputs.get("user_state", "")
     image_url = inputs.get("image_url", "")
     detail = inputs.get("detail", "low")
-    system_prompt = inputs.get("system_prompt", "")
+    analysis_prompt = inputs.get("analysis_prompt", "")
 
     prompt_text = build_final_prompt(user_state, formatted_docs)
 
     return [
-        SystemMessage(content=system_prompt),
+        SystemMessage(content=analysis_prompt),
         HumanMessage(content=[
             {
                 "type": "image_url",

@@ -20,12 +20,13 @@ class Config:
     LOGS_DIR = str(PROJECT_ROOT / "logs")
 
     # 문서 처리 설정
-    CHUNK_SIZE = 800
-    CHUNK_OVERLAP = 150
+    CHUNK_SIZE = 1000
+    CHUNK_OVERLAP = 200
     MIN_CHUNK_SIZE = 240
 
     # 임베딩 설정
     EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
+    NORMALIZE_EMBEDDINGS = True
 
     # LLM 설정
     LLM_MODEL = "gpt-4o-mini"
@@ -36,7 +37,8 @@ class Config:
     IMAGE_DETAIL = "low"
 
     # RAG 설정
-    TOP_K = 3
+    TOP_K = 7
+    RRF_K = 60
 
     # Cloudinary 설정
     CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")

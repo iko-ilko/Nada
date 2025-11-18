@@ -32,14 +32,15 @@ class ChainLogger:
         analysis: Dict[str, Any],
         image_detail: str,
         model: str = None,
-        search_scores: List[float] = None
+        search_metadata: List[Dict[str, Any]] = None,
+        llm_raw_response: Dict[str, Any] = None
     ) -> str:
         """분석 결과를 로그 파일에 저장합니다."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         log_filename = f"analysis_{timestamp}.json"
         log_filepath = self.log_dir / log_filename
 
-        papers_info = self._extract_papers_info(search_results, search_scores)
+        papers_info = self._extract_papers_info(search_results, search_metadata)
 
         log_data = {
             "timestamp": datetime.now().isoformat(),
@@ -61,6 +62,7 @@ class ChainLogger:
                 },
                 "search": {
                     "total_results": len(search_results),
+                    "llm_raw_response": llm_raw_response if llm_raw_response else None,
                     "papers": papers_info,
                 }
             },
@@ -78,17 +80,26 @@ class ChainLogger:
             logger.error(f"❌ 로그 저장 실패: {e}")
             raise
 
-    def _extract_papers_info(self, search_results: List[Any], search_scores: List[float] = None) -> List[Dict[str, str]]:
+    def _extract_papers_info(self, search_results: List[Any], search_metadata: List[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         """검색된 논문들의 정보를 추출합니다."""
         papers_info = []
 
         for i, doc in enumerate(search_results, 1):
+            # search_metadata에서 점수 정보 추출 (있으면)
+            scores = {}
+            if search_metadata and i - 1 < len(search_metadata):
+                meta = search_metadata[i - 1]
+                scores = {
+                    "dense_score": meta.get("dense_score"),
+                    "bm25_score": meta.get("bm25_score"),
+                    "rrf_score": meta.get("rrf_score"),
+                }
+
             paper_info = {
                 "rank": i,
                 "source": doc.metadata.get("source", "Unknown"),
-                "type": doc.metadata.get("type", "Unknown"),
                 "page": doc.metadata.get("page", "Unknown"),
-                "similarity_score": search_scores[i - 1] if search_scores and i - 1 < len(search_scores) else None,
+                **scores,  # Dense, BM25, RRF 점수 추가
                 "content_preview": doc.page_content[:300] if hasattr(doc, 'page_content') else "",
                 "full_content": doc.page_content if hasattr(doc, 'page_content') else "",
             }

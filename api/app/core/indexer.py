@@ -155,7 +155,11 @@ class EmbeddingManager:
         logger.info(f"🔢 임베딩 모델 로드 중... ({self.model_name}) device={self.device}")
 
         try:
-            self.embeddings = HuggingFaceEmbeddings(model_name=self.model_name, model_kwargs={"device": self.device})
+            self.embeddings = HuggingFaceEmbeddings(
+                model_name=self.model_name,
+                model_kwargs={"device": self.device},
+                encode_kwargs={'normalize_embeddings': True}
+            )
         except TypeError:
             self.embeddings = HuggingFaceEmbeddings(model_name=self.model_name)
 
@@ -182,7 +186,6 @@ class VectorStoreManager:
             documents=chunks,
             embedding=self.embeddings,
             persist_directory=self.persist_dir,
-            collection_name=self.collection_name,
         )
 
         elapsed_time = time.time() - start_time
@@ -199,7 +202,6 @@ class VectorStoreManager:
         self.vectorstore = Chroma(
             persist_directory=self.persist_dir,
             embedding_function=self.embeddings,
-            collection_name=self.collection_name,
         )
 
         logger.info(f"   ✅ 벡터 DB 로드 완료")
@@ -214,6 +216,12 @@ class VectorStoreManager:
             search_type="similarity",
             search_kwargs={"k": Config.TOP_K},
         )
+
+    def get_bm25_retriever(self, documents):
+        """BM25 Retriever 생성"""
+        from langchain_community.retrievers import BM25Retriever
+        logger.info(f"🔍 BM25 리트리버 생성 중...")
+        return BM25Retriever.from_documents(documents)
 
 
 class DocumentIndexer:
