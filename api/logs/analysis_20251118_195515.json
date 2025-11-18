@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-11-18T19:55:15.578815",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "intfloat/multilingual-e5-large",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 1000,
+      "CHUNK_OVERLAP": 200,
+      "TOP_K": 7
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/authenticated/s--Py9AWYjv--/v1763463303/522f8e9d_2025-11-18.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "나 탈모가 올까?"
+    },
+    "search": {
+      "total_results": 0,
+      "papers": []
+    }
+  },
+  "analysis": {
+    "Hair": {
+      "status": "현재 헤어는 자연스럽고 건강해 보이며, 이마가 드러나는 스타일로 연출되고 있습니다. 다만, 머리카락의 밀도나 두께에 대한 우려가 있을 수 있습니다.",
+      "improvement_tips": [
+        "탈모 예방을 위해 매일 두피 마사지를 해보세요. 손가락으로 두피를 부드럽게 눌러주면 혈액 순환에 도움이 됩니다.",
+        "건강한 식단을 유지하고, 비타민 B와 E가 풍부한 음식을 섭취해 보세요. 이는 모발 건강에 긍정적인 영향을 줄 수 있습니다."
+      ]
+    },
+    "Skin": {
+      "status": "피부는 약간의 땀으로 인해 빛나고 있으며, 전체적으로 건강한 모습입니다. 수분 상태는 양호하나, 여름철 더위로 인해 피지 분비가 증가할 수 있습니다.",
+      "improvement_tips": [
+        "외출 후에는 반드시 클렌징을 통해 땀과 피지를 제거하세요.",
+        "수분 보충을 위해 충분한 물을 마시고, 수분 크림을 사용해 피부의 수분을 유지해 보세요."
+      ]
+    },
+    "Contour": {
+      "status": "얼굴 윤곽이 비교적 부드럽고 균형 잡힌 모습입니다. 전체적인 비율이 잘 맞아 보입니다.",
+      "improvement_tips": [
+        "뷰러와 마스카라를 사용해 눈을 더욱 돋보이게 해보세요.",
+        "자외선 차단제를 사용하여 피부를 보호하고, 윤곽을 더욱 선명하게 만들어 보세요."
+      ]
+    }
+  }
+}

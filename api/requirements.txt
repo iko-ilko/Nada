@@ -21,6 +21,9 @@ transformers
 sentence-transformers
 huggingface-hub
 
+# Ranking
+rank_bm25
+
 # PDF Processing
 pypdf
 

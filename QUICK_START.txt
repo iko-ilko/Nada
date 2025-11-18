@@ -48,5 +48,4 @@ Nada_hackerton/
 ├── docker-compose.yml               # 컨테이너 조율
 ├── Makefile                         # 편리 명령어
 ├── requirements.txt                 # 의존성
-├── IMPLEMENTATION_PLAN.md           # 이 파일
 └── README.md
