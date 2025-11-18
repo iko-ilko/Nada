@@ -5,12 +5,12 @@
 Nada는 사용자의 얼굴 이미지를 AI가 분석해 **현재 외모·피부·표정 상태를 객관적으로 진단**하고,  
 그 결과를 바탕으로 **자존감 향상과 건강한 자기관리 루틴**을 제안하는 **AI 코칭 서비스**입니다.
 
-AI는 감정이 아닌 **데이터 기반 분석**으로 피드백을 제공하면서도,  
+AI는 감정이 아닌 **데이터 기반 분석**으로 피드백을 제공하면서도  
 **긍정적·격려형 화법**을 사용하여 사용자의 자존감과 자기 효능감을 함께 높이는 것을 목표로 합니다.
 
-단순한 미용 분석을 넘어,  
+단순한 미용 분석을 넘어  
 **과학적 근거 + 정서적 지지**를 결합해 “나를 객관적으로 이해하고 돌보는 과정”을 돕습니다.  
-이를 위해 **논문 기반 RAG(Search-Augmented Generation)** 구조를 도입하여  
+이를 위해 **논문 기반 RAG(Retrieval-Augmented Generation)** 구조를 도입하여  
 사용자에게 **신뢰성 있는 분석과 실증적 루틴**을 제공합니다.
 
 ---
@@ -20,19 +20,17 @@ AI는 감정이 아닌 **데이터 기반 분석**으로 피드백을 제공하�
 ### 🔹 사회적 배경
 
 1. **SNS 중심 사회**에서 외모 비교와 자기비하로 인한 **청년층 자존감 저하**가 심화되고 있음.  
-2. 기존 ‘예쁨 중심’ 미용 앱들은 **점수화된 평가 구조**로 오히려 불안을 증폭시키는 문제를 야기.  
-3. 반면, **건강한 자기관리와 심리적 회복을 지원할 객관적 코칭 시스템**은 부족한 상황.  
+2. 기존 ‘예쁨 중심’ 미용 앱들은 **점수화된 평가 구조**로 오히려 불안을 증폭시키는 문제를 야기함.  
+3. 반면, **건강한 자기관리와 심리적 회복을 지원할 객관적 코칭 시스템**은 부족한 상황임.  
 4. 외모 비교 문화가 일상이 된 시대에, **데이터 기반 객관적 분석 + 따뜻한 피드백**으로  
-   “건강한 자기인식”과 “지속 가능한 자기관리”를 돕는 서비스의 필요성이 높음.  
-   > 💡 *(데이터 기반 자기관리 효과에 대한 통계나 논문 인용을 추가하면 설득력 강화)*
+   “건강한 자기인식”과 “지속 가능한 자기관리”를 돕는 서비스의 필요성이 높아지고 있음.
 
 ### 🔹 기술적 배경
 
-1. 생성형 AI(LLM)의 확산으로 개인화 코칭이 가능해졌으나,  
+1. 생성형 AI(LLM)의 확산으로 개인 맞춤 코칭이 가능해졌으나,  
    **할루시네이션(허위 정보 생성)** 문제로 신뢰도 저하 사례가 빈번함.  
-2. Nada는 **RAG + LangChain 기반 구조**를 적용하여,  
-   AI가 **논문 데이터베이스를 근거로 답변**하도록 설계함.  
-   *(‘LLM API’는 LangChain 내부에서 관리되므로 별도 명시 불필요)*
+2. Nada는 **RAG + LangChain 기반 구조**를 적용하여  
+   AI가 **논문 데이터베이스를 근거로 답변**하도록 설계함.
 
 ### 🔹 목적 요약
 
@@ -44,12 +42,12 @@ AI는 감정이 아닌 **데이터 기반 분석**으로 피드백을 제공하�
 
 ## ⚙️ 시스템 구성
 
-### 🧩 1. 활용 데이터 및 AI 모델
+### 🧩 활용 데이터 및 AI 모델
 
 | 항목 | 내용 |
 |------|------|
-| **입력 데이터** | 사용자 얼굴 이미지 (정면 1인), 표정·피부·헤어 상태 |
-| **AI 분석 모델** | Face Recognition + 최신 LLM (예: GPT-4o, Claude 등) |
+| **입력 데이터** | 사용자 얼굴 이미지, 표정·피부·헤어 상태 |
+| **AI 분석 모델** | GPT-4o-mini |
 | **RAG 구성요소** | LangChain + Chroma (Local Vector DB) |
 | **참조 데이터셋** | 얼굴 임베딩, 뷰티·건강·심리 관련 논문 Embedding |
 | **출력 구조(JSON)** | 진단 결과 + 논문 근거 + 긍정 코칭 메시지 |
@@ -58,33 +56,34 @@ AI는 감정이 아닌 **데이터 기반 분석**으로 피드백을 제공하�
 
 ```json
 {
-  "Hair": {
-    "status": "",
-    "tip": ""
+  "status": "success",
+  "analysis": {
+    "Hair": {
+      "status": "헤어의 현재 상태에 대한 간결한 요약 설명",
+      "improvement_tips": [
+        "오늘 실천 가능한 구체적인 행동 1",
+        "오늘 실천 가능한 구체적인 행동 2"
+      ]
+    },
+    "Skin": {
+      "status": "피부의 현재 상태에 대한 간결한 요약 설명",
+      "improvement_tips": [
+        "오늘 실천 가능한 구체적인 행동 1",
+        "오늘 실천 가능한 구체적인 행동 2"
+      ]
+    },
+    "Contour": {
+      "status": "윤곽의 현재 상태에 대한 간결한 요약 설명",
+      "improvement_tips": [
+        "오늘 실천 가능한 구체적인 행동 1",
+        "오늘 실천 가능한 구체적인 행동 2"
+      ]
+    }
   },
-  "Skin": {
-    "status": "",
-    "tip": ""
-  },
-  "Contour": {
-    "status": "",
-    "tip": ""
-  },
-  "meta": { -> 메타 데이터의 필요성은 해보고
-    "timestamp": "",
-    "source": "RAG + LLM",
-    "references": []
-  }
+  "references": ["논문1.pdf", "논문2.pdf", "논문3.pdf"]
 }
 ```
-🔒 보안 설계 초안
-클라우드 이미지 서버 내 암호화 저장
 
-비공개 접근 제어 (Private bucket 구조)
-
-세부 암호화 및 접근 권한은 구현 단계에서 보완 예정
-
-Face Recognition은 단일 인물 여부 검증용 (API 비용 절감 목적)
 
 ## 서비스 플로우
 
@@ -97,104 +96,79 @@ Face Recognition은 단일 인물 여부 검증용 (API 비용 절감 목적)
 ---
 
 ### 📷 [사용자 입력 단계]
-1. 사용자가 **사진 촬영 및 업로드**  
-2. 클라이언트에서 **얼굴 감지 여부 판단**  
-   - 여러 인물이 감지될 경우 업로드 차단  
+1. 사용자가 **사진 촬영 및 업로드**    
+2. **Cloudinary에 이미지 업로드**
+
 
 ---
 
-### 🧩 [이미지 분석 단계]
-1. **Face Recognition** 으로 단일 얼굴 검증  
-2. **피부 톤·트러블·표정** 등 기초 분석 수행  
+### 🔄 [쿼리 최적화 단계]
+1. **LLM으로 멀티모달 이미지 분석** (Vision Capability)
+   - Hair 상태: 형태, 질감, 볼륨, 손상도 등
+   - Skin 상태: 톤, 수분/유분, 결, 잡티, 트러블 등
+   - Contour 상태: 얼굴형, 비율, 턱선, 볼살 등
+2. **분석 결과 기반 검색 쿼리 자동 생성**
+   - 사용자 입력 + 이미지 분석 결과를 종합하여 최적화된 RAG 쿼리 생성
 
 ---
 
-### 🤖 [RAG 검색 + LLM 응답 생성 단계]
-1. **LangChain** 이 이미지 분석 결과를 기반으로 논문 벡터 DB 검색  
-2. 관련 문단을 **요약 후 LLM Context로 전달**  
-   - (이 과정은 LangChain이 자동 수행)  
-3. **LLM** 이 다음 항목을 포함한 **JSON 응답 생성**  
-   - 객관적 진단  
-   - 논문 근거 요약  
-   - 긍정적/격려형 코칭 메시지 *(Few-shot Prompting 예정)*  
+### 🔍 [RAG 검색 단계]
+1. **하이브리드 검색** 수행 (Dense + BM25 + RRF)
+   - **Dense 검색**: 코사인 유사도 기반 의미 검색
+   - **BM25 검색**: 키워드 기반 검색
+   - **RRF (Reciprocal Rank Fusion)**: 두 검색 결과 통합 (상위 7개 논문 선택)
+
+---
+
+### 💡 [최종 분석 단계]
+1. **LLM** 이 검색된 논문들을 기반으로 최종 분석 수행
+2. **JSON 응답 생성**
+   - 객관적 진단 (Hair/Skin/Contour 각각)
+   - 논문 근거 활용
+   - 긍정적/격려형 코칭 메시지
+   - 메타데이터 (timestamp, source, references)  
 
 ---
 
 ### 💬 [프론트엔드 출력]
-- **분석 수치 및 근거** 시각화  
-- **코칭 메시지** 출력 및 피드백 제공  
+- **분석 및 근거** 시각화
+- **코칭 메시지** 출력 및 피드백 제공
+
+---
 
 
 
 
----------------아래는 구조 변경 필요
-🧩 Tech Stack
-Layer	Tools / Frameworks
-LLM	GPT-4o, Claude 3
-RAG Framework	LangChain
-Vector DB	Chroma
-Face Analysis	Face Recognition
-Backend	Python (FastAPI)
-Infra	AWS / GCP (Private Bucket)
-Data	논문 PDF → Text Chunking → Embedding
-🧬 Example RAG Flow
-1. 논문 임베딩 준비
-from langchain.document_loaders import PyPDFLoader
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
 
-loader = PyPDFLoader("skin_health_paper.pdf")
-docs = loader.load_and_split()
-embeddings = OpenAIEmbeddings()
-db = Chroma.from_documents(docs, embeddings, persist_directory="db/chroma")
-
-2. 질의 처리 (유저 이미지 분석 결과 기반)
-from langchain.chains import RetrievalQA
-from langchain.chat_models import ChatOpenAI
-
-retriever = db.as_retriever(search_kwargs={"k": 3})
-qa = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(model="gpt-4o"),
-    retriever=retriever
-)
-
-query = "피부 피로도가 높고 수면 부족한 사용자에게 추천할 관리법은?"
-response = qa.run(query)
-print(response)
-
-3. LLM 응답 예시
-{
-  "diagnosis": "피부 피로도와 수면 부족의 상관관계가 높음",
-  "evidence": "논문: 'Sleep Quality and Skin Aging', Journal of Dermatology (2021)",
-  "coaching": "수면 리듬을 조정하고 수분 섭취를 늘리는 것이 도움이 됩니다."
-}
-
-🚀 Setup & Run
-# 1. Install dependencies
-pip install -r requirements.txt
-
-# 2. Set environment variables
-export OPENAI_API_KEY="your_api_key"
-
-# 3. Run embedding and server
-python scripts/embed_papers.py
-uvicorn app.main:app --reload
+## 🧩 Tech Stack
+| Layer     | Tools / Frameworks                        |
+| --------- | ----------------------------------------- |
+| LLM       | GPT-4o-mini                               |
+| RAG       | LangChain                                 |
+| Vector DB | Chroma                                    |
+| Backend   | FastAPI                                   |
+| Frontend  | React                                     |
+| Data      | 관련 논문 텍스트 → Chunking → Embedding 파이프라인 구축 |
 
 
-.env 파일을 사용하면 OpenAI 키와 환경설정을 안전하게 관리할 수 있습니다.
+## 📈 현재 진행 상황
 
-🧭 Roadmap
+### ✅ MVP 단계까지 구현 완료
 
- 이미지 분석 결과 → LLM 컨텍스트 통합
+- LLM을 통해 기본적인 얼굴 이미지 분석 및 설명 제공
 
- Few-shot Prompt 튜닝으로 피드백 품질 개선
+- RAG를 통해 사용자의 질의에 대한 논문 기반 코칭 피드백 제공
 
- 보안 강화 (Private Bucket / 암호화 저장)
+### 🔄 향후 개발 예정 기능
 
- UI/UX 시각화 추가
+- 사용자 히스토리 기능: 반복 사용 시 개인 취향·패턴에 맞춘 코칭 강화
 
- 논문 자동 업데이트 파이프라인 구축
+- 회원가입 및 계정 관리 기능 추가
 
-📄 License
+- 이미지 분석 전용 모델 탑재 및 고도화
 
-MIT License © 2025 Nada Project Team
+- 논문 데이터 및 외부 참고 데이터 지속 확장
+
+- 피드백 및 참고 문헌의 UI/UX 개선
+
+- RAG 파이프라인 고도화 및 프롬프트 엔지니어링 개선
