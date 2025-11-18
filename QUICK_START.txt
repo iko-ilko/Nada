@@ -1,0 +1,51 @@
+- 개발 때 테스트
+  1. makefile 만들어 놨으니
+  2. make front로 프론트 서버 띄우고(백그라운드 아님)
+  3. make dev 로 (venv환경 설정 하고) 백엔드 서버 띄워서(백그라운드 아님)
+  4. http://localhost:3000 으로 접속해서 테스트 가능
+
+- 현재 컨테이너는 백엔드 서버 + 벡터디비 마운트해서 사용(빌드 할 때 오래 걸릴까봐 미리 세팅된 벡터디비 사용)
+  - 백엔드 서버 실행 후 첫 분석은 모델 로드하느라 좀 느림
+  - 임베딩하는건 app/
+
+
+- 폴더 구조
+
+Nada_hackerton/
+├── app/
+│   ├── __init__.py
+│   ├── main.py                      # FastAPI 앱 (엔트리포인트)
+│   ├── core/                        # RAG 핵심 로직
+│   │   ├── __init__.py
+│   │   ├── config.py                # 설정 (기존)
+│   │   ├── indexer.py               # 벡터 DB 관리 (기존, import 경로 수정)
+│   │   ├── vision.py                # 이미지 처리 (기존, import 경로 수정)
+│   │   ├── llm.py                   # LLM 초기화 (기존, import 경로 수정)
+│   │   ├── chain_logger.py          # 분석 플로우 로깅 (기존 logger.py 이름 변경)
+│   │   ├── rag.py                   # 체인 구성
+│   │   └── prompt/                  # 프롬프트 파일
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── analysis_service.py      # 분석 서비스
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── request.py               # 요청 스키마
+│   │   └── response.py              # 응답 스키마
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   └── analyze.py               # /api/analyze 라우터
+│   └── utils/
+│       ├── __init__.py
+|       ├── cloudinary.py            # 이미지 서버
+│       └── logging.py               # 서버 로깅
+├── scripts/
+│   ├── __init__.py
+│   └── embed_papers.py              # 벡터 DB 생성
+├── data/papers/                     # 원본 PDF
+├── chroma_db/                       # 벡터 DB
+├── logs/                            # 분석 결과 로그
+├── Dockerfile                       # 컨테이너 설정
+├── docker-compose.yml               # 컨테이너 조율
+├── Makefile                         # 편리 명령어
+├── requirements.txt                 # 의존성
+└── README.md

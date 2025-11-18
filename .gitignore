@@ -1,12 +1,17 @@
 # claude code
 .claude/
 .mcp.json
+CLAUDE.md
 
 **/.env
 **/.env.local
 **/.kiss.env
 **/.keys.env
 **/google-services.json
+
+# project
+**/chroma_db
+**/data/papers
 
 # Python (fastapi)
 **/__pycache__/
