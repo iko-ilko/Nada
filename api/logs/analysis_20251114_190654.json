@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-11-14T19:06:54.712958",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "intfloat/multilingual-e5-large",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 800,
+      "CHUNK_OVERLAP": 150,
+      "TOP_K": 3
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/upload/v1756530521/qmfzfedoxpkt1phjn1ag.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "피부가 더 좋아지고 싶어."
+    },
+    "search": {
+      "total_results": 3,
+      "papers": [
+        {
+          "rank": 1,
+          "source": "턱 운동을 통한 얼굴 윤곽 성형-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 0,
+          "content_preview": "Insights on Skin Quality and Clinical Practice \nTrends in Asia Paci/f_i  c and a Practical Guide to \nGood Skin Quality from the Inside Out",
+          "full_content": "Insights on Skin Quality and Clinical Practice \nTrends in Asia Paci/f_i  c and a Practical Guide to \nGood Skin Quality from the Inside Out"
+        },
+        {
+          "rank": 2,
+          "source": "피부 조직부터 겉까지 단계적으로 관리 더 효율적이며 생활습관 개선(ㅍㅂ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 0,
+          "content_preview": "Insights on Skin Quality and Clinical Practice \nTrends in Asia Paci/f_i  c and a Practical Guide to \nGood Skin Quality from the Inside Out",
+          "full_content": "Insights on Skin Quality and Clinical Practice \nTrends in Asia Paci/f_i  c and a Practical Guide to \nGood Skin Quality from the Inside Out"
+        },
+        {
+          "rank": 3,
+          "source": "얼굴 근육 운동 기구가 얼굴 회춘에 미치는 효과-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 13,
+          "content_preview": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmu",
+          "full_content": "41. Kim K, Jeon S, Kim JK, Hwang JS. Effects of Kyunghee \nFacial Resistance Program (KFRP) on mechanical and \nelastic properties of skin. J Dermatolog Treat. 2016;27(2): \n191-196.\n42. Ezure T, Hosoi J, Amano S, Tsuchiya T. Sagging of the \ncheek is related to skin elasticity, fat mass and mimetic \nmuscle function. Skin Res Technol. 2009;15(3):299-305.\n43. Aminian-Far A, Hadian MR, Olyaei G, Talebian S, \nBakhtiary AH. Whole-body vibration and the prevention \nand treatment of delayed-onset muscle soreness. J Athl \nTrain. 2011;46(1):43-49.\n44. Bosco C, Colli R, Introini E, et al. Adaptive responses of \nhuman skeletal muscle to vibration exposure. Clin Physiol. \n1999;19(2):183-187.\n45. Kisner C, Colby LA. Resistance Exercise for Impaired Muscle"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Hair": {
+      "status": "헤어는 자연스럽게 떨어지는 스타일로, 약간의 수분이 느껴집니다. 볼륨과 질감이 좋지만, 관리가 필요해 보입니다.",
+      "improvement_tips": [
+        "수분이 많은 헤어 제품을 사용하여 머릿결을 부드럽고 윤기 있게 유지하세요.",
+        "주 1회 깊은 영양 트리트먼트를 통해 모발을 강화하고 건강하게 관리하세요."
+      ]
+    },
+    "Skin": {
+      "status": "피부는 약간의 땀과 유분이 보이며, 수분이 부족해 보입니다. 전체적으로 건강한 톤이지만, 더 매끄럽고 촉촉한 상태로 개선할 수 있습니다.",
+      "improvement_tips": [
+        "하루에 두 번 수분 크림을 사용하여 피부의 수분을 유지하세요.",
+        "매일 충분한 물을 마셔 피부의 수분을 보충하세요."
+      ]
+    },
+    "Contour": {
+      "status": "얼굴 윤곽은 자연스럽고 균형 잡힌 느낌을 주지만, 약간의 피로감이 느껴집니다. 전체적인 대칭이 잘 유지되고 있습니다.",
+      "improvement_tips": [
+        "얼굴 마사지로 혈액 순환을 촉진하여 더욱 생기 있는 윤곽을 만들어 보세요.",
+        "정기적으로 스킨케어 루틴을 통해 피부 결을 개선하세요."
+      ]
+    }
+  }
+}

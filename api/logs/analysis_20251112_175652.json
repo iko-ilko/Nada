@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-11-12T17:56:52.045270",
+  "metadata": {
+    "config": {
+      "LLM_MODEL": "gpt-4o-mini",
+      "EMBEDDING_MODEL": "all-MiniLM-L12-v2",
+      "IMAGE_DETAIL": "low",
+      "CHUNK_SIZE": 300,
+      "CHUNK_OVERLAP": 50,
+      "TOP_K": 3
+    },
+    "image": {
+      "url": "https://res.cloudinary.com/nadacloud/image/upload/v1756530521/qmfzfedoxpkt1phjn1ag.jpg",
+      "detail_level": "low"
+    },
+    "input": {
+      "user_state": "얼굴이 처져 보이는데 개선 방법이 있을까?"
+    },
+    "search": {
+      "total_results": 3,
+      "papers": [
+        {
+          "rank": 1,
+          "source": "전문가에서 선호되는 턱선(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 11,
+          "content_preview": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth",
+          "full_content": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth"
+        },
+        {
+          "rank": 2,
+          "source": "전문가에서 선호되는 턱선(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 11,
+          "content_preview": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth",
+          "full_content": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth"
+        },
+        {
+          "rank": 3,
+          "source": "전문가에서 선호되는 턱선(ㅇㄱ)-PubMed_Central.pdf",
+          "type": "pdf",
+          "page": 11,
+          "content_preview": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth",
+          "full_content": "2(3):348–373\n7. Yu JY, Ko TG (2012) A cross-cultural study of perceptions of\nmedical tourism among Chinese, Japanese and Korean tourists in\nKorea. Tour Manag 33(1):80–88\n8. Samizadeh S, Wu W (2018) Ideals of facial beauty amongst the\nchinese population: results from a large national survey. Aesth"
+        }
+      ]
+    }
+  },
+  "analysis": {
+    "Appearance_Coaching": {
+      "Hair": {
+        "status": "헤어는 약간 젖어 있는 상태로, 자연스럽고 부드러운 느낌을 주고 있습니다. 볼륨이 적고 얼굴을 감싸는 형태로 보입니다.",
+        "improvement_tips": [
+          "헤어 제품을 사용하여 볼륨을 추가하고, 스타일링 시 머리를 위로 올리는 방향으로 스타일링해 보세요.",
+          "정기적으로 헤어 트리트먼트를 통해 머릿결을 건강하게 유지하세요."
+        ]
+      },
+      "Skin": {
+        "status": "피부는 약간의 땀으로 인해 광택이 나고 있으며, 수분 상태가 좋습니다. 하지만 피부 톤이 고르지 않아 보입니다.",
+        "improvement_tips": [
+          "매일 아침과 저녁에 수분 크림을 사용하여 피부를 촉촉하게 유지하세요.",
+          "주 1-2회 각질 제거를 통해 피부 결을 개선하고, 더 매끄러운 피부를 만들어 보세요."
+        ]
+      },
+      "Contour": {
+        "status": "얼굴이 약간 처져 보이는 경향이 있으며, 턱선과 볼살의 비율이 더 강조될 수 있습니다.",
+        "improvement_tips": [
+          "얼굴 운동을 통해 턱선과 볼살을 강화하는 운동을 매일 5분씩 해보세요.",
+          "메이크업을 활용하여 하이라이터로 얼굴의 윤곽을 강조해 보세요."
+        ]
+      }
+    }
+  }
+}
