@@ -8,7 +8,6 @@ CLAUDE.md
 **/.kiss.env
 **/.keys.env
 **/google-services.json
-**/.venv
 # project
 **/chroma_db
 **/data/papers
@@ -16,7 +15,9 @@ CLAUDE.md
 # Python (fastapi)
 **/__pycache__/
 **/*.pyc
-**/venv/
+**/.venv/
+**/logs/
+**/data/
 
 # # Flutter (Frontend)
 # **/.dart_tool/
@@ -46,3 +47,4 @@ CLAUDE.md
 **/.vscode/
 **/.idea/
 prev/
+
