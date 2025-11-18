@@ -41,3 +41,5 @@
 **/.vscode/
 **/.idea/
 prev/
+
+**/data/**
