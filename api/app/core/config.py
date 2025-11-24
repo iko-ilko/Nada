@@ -38,7 +38,7 @@ class Config:
 
     # RAG 설정
     TOP_K = 7
-    RRF_K = 60
+    RRF_K = 60 # Dense + BM25 두 방식의 결과를 병합하는 k값. 불규칙한 변동성을 줄여서 패턴이나 추세를 더 명확하게 스무딩 처리하는 파라미터로 이해. 민감도 조절.
 
     # Cloudinary 설정
     CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")

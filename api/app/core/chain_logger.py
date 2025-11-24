@@ -33,7 +33,8 @@ class ChainLogger:
         image_detail: str,
         model: str = None,
         search_metadata: List[Dict[str, Any]] = None,
-        llm_raw_response: Dict[str, Any] = None
+        llm_raw_response: Dict[str, Any] = None,
+        detailed_search_logs: List[Dict[str, Any]] = None
     ) -> str:
         """분석 결과를 로그 파일에 저장합니다."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -52,6 +53,7 @@ class ChainLogger:
                     "CHUNK_SIZE": Config.CHUNK_SIZE,
                     "CHUNK_OVERLAP": Config.CHUNK_OVERLAP,
                     "TOP_K": Config.TOP_K,
+                    "RRF_K": Config.RRF_K,
                 },
                 "image": {
                     "url": image_url,
@@ -63,6 +65,7 @@ class ChainLogger:
                 "search": {
                     "total_results": len(search_results),
                     "llm_raw_response": llm_raw_response if llm_raw_response else None,
+                    "detailed_search_logs": detailed_search_logs if detailed_search_logs else None,
                     "papers": papers_info,
                 }
             },
