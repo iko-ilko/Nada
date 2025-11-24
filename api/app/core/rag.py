@@ -213,7 +213,7 @@ def _generate_optimized_query(llm, filled_make_query_prompt, image_url, image_de
 
     # LLM 호출
     logger.info("🔄 LLM으로 최적화된 검색 쿼리 생성 중...")
-    response = llm.invoke([message])
+    response = llm.invoke([message], temperature=Config.ANALYSIS_TEMPERATURE)
     # AIMessage를 문자열로 변환
     response_text = response.content if hasattr(response, 'content') else str(response)
     logger.info(f"   ✅ 쿼리 생성 완료")
