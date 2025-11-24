@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_core.language_models import BaseLanguageModel
+from app.core.config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -151,8 +152,8 @@ def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_
         ]
     )
 
-    # temperature 오버라이드 
-    response = vision_llm.invoke([message], temperature=0)
+    # temperature 오버라이드
+    response = vision_llm.invoke([message], temperature=Config.MAKE_QUERY_TEMPERATURE)
 
     # JSON 파싱
     content = response.content
