@@ -29,12 +29,12 @@ export default function PhotoResult() {
         <div className="font-display bg-background-light dark:bg-background-dark">
             <div className="mx-auto flex h-screen max-w-sm flex-col overflow-hidden">
                 <main className="flex flex-1 flex-col px-6 pt-8 pb-4">
-                    <div className="flex-grow cursor-pointer" onClick={handleImageClick}>
+                    <div className="flex-grow cursor-pointer flex items-center justify-center" onClick={handleImageClick}>
                         {capturedImage ? (
                             <img
                                 src={capturedImage}
                                 alt="Captured"
-                                className="h-full w-full rounded-3xl object-cover"
+                                className="max-h-full max-w-full rounded-3xl object-contain"
                             />
                         ) : (
                             <div className="h-full w-full rounded-3xl bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
