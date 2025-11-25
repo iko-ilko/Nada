@@ -89,7 +89,7 @@ export default function Camera() {
         </header>
         <main className="flex flex-grow flex-col items-center justify-between p-6">
           <div className="flex-grow"></div>
-          <div className="relative mb-6 h-[400px] w-full max-w-xs">
+          <div className="relative mb-6 h-[540px] w-full max-w-s">
             {error ? (
               <div className="h-full w-full rounded-2xl bg-red-900/50 flex items-center justify-center p-4">
                 <p className="text-sm text-white text-center">{error}</p>
