@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function AnalysisDetail() {
   const navigate = useNavigate();
   const location = useLocation();
+  const mountedRef = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
   const [analysisData, setAnalysisData] = useState(null);
   const [references, setReferences] = useState([]);
@@ -70,10 +71,17 @@ export default function AnalysisDetail() {
   };
 
   useEffect(() => {
+    // Strict Mode의 이중 실행 방지
+    if (!mountedRef.current) return;
+
     // 이미 분석 데이터가 없을 때만 API 호출
     if (!analysisData) {
       analyzeImage();
     }
+
+    return () => {
+      mountedRef.current = false;
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 카테고리명 매핑
