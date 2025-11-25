@@ -143,8 +143,27 @@ export default function AnalysisDetail() {
           {/* 성공 상태 - 분석 결과 표시 */}
           {!isLoading && !error && analysisData && (
             <>
+              {/* 오늘의 한 마디 섹션 */}
+              {analysisData.Summary && (
+                <div className="mt-6 py-4 px-5 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/6 border-l-4 border-l-primary border border-primary/20 shadow-sm dark:from-primary/20 dark:to-primary/8 dark:border-primary/30">
+                  <div className="flex items-center gap-1 mb-2">
+                    <span className="material-symbols-outlined text-primary text-sm flex-shrink-0">
+                      lightbulb
+                    </span>
+                    <h2 className="text-xs font-extrabold text-primary dark:text-primary tracking-wide">
+                      오늘의 한 마디
+                    </h2>
+                  </div>
+                  <p className="text-sm text-text-light-primary dark:text-text-dark-primary italic leading-relaxed">
+                    "{analysisData.Summary}"
+                  </p>
+                </div>
+              )}
+
               <div className="mt-6 space-y-5">
-                {Object.entries(analysisData).map(([category, data]) => (
+                {Object.entries(analysisData)
+                  .filter(([category]) => category !== 'Summary')
+                  .map(([category, data]) => (
                   <div
                     key={category}
                     className="rounded-2xl bg-surface-light p-5 shadow-sm dark:bg-surface-dark"
