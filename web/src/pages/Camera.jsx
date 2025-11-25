@@ -52,11 +52,30 @@ export default function Camera() {
       const video = videoRef.current;
       const canvas = canvasRef.current;
 
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+      // 비디오 실제 해상도
+      const videoWidth = video.videoWidth;
+      const videoHeight = video.videoHeight;
+
+      // 화면에 표시되는 크기 (CSS)
+      const displayWidth = video.clientWidth;
+      const displayHeight = video.clientHeight;
+
+      // object-cover로 보여지는 부분 계산
+      // 화면 비율에 맞춰 원본에서 중앙 부분만 추출
+      const displayRatio = displayWidth / displayHeight;
+      const cropWidth = videoHeight * displayRatio;
+      const offsetX = (videoWidth - cropWidth) / 2;
+
+      // Canvas에 화면에 보이는 부분만 그리기
+      canvas.width = cropWidth;
+      canvas.height = videoHeight;
 
       const context = canvas.getContext('2d');
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      context.drawImage(
+        video,
+        offsetX, 0, cropWidth, videoHeight,  // 원본에서 추출할 부분
+        0, 0, canvas.width, canvas.height     // canvas에 그릴 부분
+      );
 
       const imageData = canvas.toDataURL('image/jpeg');
       setCapturedImage(imageData);
