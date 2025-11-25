@@ -34,7 +34,9 @@ class ChainLogger:
         model: str = None,
         search_metadata: List[Dict[str, Any]] = None,
         llm_raw_response: Dict[str, Any] = None,
-        detailed_search_logs: List[Dict[str, Any]] = None
+        detailed_search_logs: List[Dict[str, Any]] = None,
+        make_query_tokens: int = 0,
+        analysis_tokens: int = 0
     ) -> str:
         """분석 결과를 로그 파일에 저장합니다."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -43,18 +45,23 @@ class ChainLogger:
 
         papers_info = self._extract_papers_info(search_results, search_metadata)
 
+        # 설정 및 토큰 정보
+        config = {
+            "LLM_MODEL": Config.LLM_MODEL,
+            "EMBEDDING_MODEL": Config.EMBEDDING_MODEL,
+            "IMAGE_DETAIL": image_detail,
+            "CHUNK_SIZE": Config.CHUNK_SIZE,
+            "CHUNK_OVERLAP": Config.CHUNK_OVERLAP,
+            "TOP_K": Config.TOP_K,
+            "RRF_K": Config.RRF_K,
+            "make_query_tokens": make_query_tokens,
+            "analysis_tokens": analysis_tokens,
+        }
+
         log_data = {
             "timestamp": datetime.now().isoformat(),
             "metadata": {
-                "config": {
-                    "LLM_MODEL": Config.LLM_MODEL,
-                    "EMBEDDING_MODEL": Config.EMBEDDING_MODEL,
-                    "IMAGE_DETAIL": image_detail,
-                    "CHUNK_SIZE": Config.CHUNK_SIZE,
-                    "CHUNK_OVERLAP": Config.CHUNK_OVERLAP,
-                    "TOP_K": Config.TOP_K,
-                    "RRF_K": Config.RRF_K,
-                },
+                "config": config,
                 "image": {
                     "url": image_url,
                     "detail_level": image_detail,

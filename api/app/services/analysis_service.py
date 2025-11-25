@@ -81,6 +81,7 @@ class AnalysisService:
             )
             image_analysis = result["image_analysis"]
             search_queries = result["search_queries"]
+            make_query_tokens = result.get("total_tokens", 0)
             logger.info(f"✅ {len(search_queries)}개 검색 쿼리 생성 완료")
 
             # 3. BM25 리트리버 초기화 (필요시)
@@ -111,6 +112,13 @@ class AnalysisService:
 
             raw_response = self.llm.invoke(messages)
             analysis = extract_json(raw_response.content)
+
+            # 최종 분석 토큰 정보 추출
+            analysis_tokens = 0
+            if hasattr(raw_response, 'response_metadata'):
+                usage = raw_response.response_metadata.get('token_usage', {})
+                analysis_tokens = usage.get('total_tokens', 0)
+
             logger.info(f"✅ 분석 완료")
 
             # 6. 참고문헌 추출
@@ -132,6 +140,8 @@ class AnalysisService:
                 search_metadata=search_metadata,
                 llm_raw_response=llm_raw_response,
                 detailed_search_logs=detailed_search_logs,
+                make_query_tokens=make_query_tokens,
+                analysis_tokens=analysis_tokens,
             )
 
             return AnalysisResponse(

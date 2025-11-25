@@ -155,6 +155,12 @@ def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_
     # temperature 오버라이드
     response = vision_llm.invoke([message], temperature=Config.MAKE_QUERY_TEMPERATURE)
 
+    # 토큰 정보 추출
+    total_tokens = 0
+    if hasattr(response, 'response_metadata'):
+        usage = response.response_metadata.get('token_usage', {})
+        total_tokens = usage.get('total_tokens', 0)
+
     # JSON 파싱
     content = response.content
     json_match = re.search(r'```json\s*(\{.*?\})\s*```', content, re.DOTALL)
@@ -174,5 +180,6 @@ def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_
 
     return {
         "image_analysis": result["image_analysis"],
-        "search_queries": result["search_queries"]
+        "search_queries": result["search_queries"],
+        "total_tokens": total_tokens
     }
