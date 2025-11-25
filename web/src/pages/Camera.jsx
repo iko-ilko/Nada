@@ -71,6 +71,11 @@ export default function Camera() {
       canvas.height = videoHeight;
 
       const context = canvas.getContext('2d');
+
+      // 좌우 반전 처리
+      context.scale(-1, 1);
+      context.translate(-cropWidth, 0);
+
       context.drawImage(
         video,
         offsetX, 0, cropWidth, videoHeight,  // 원본에서 추출할 부분
@@ -120,7 +125,7 @@ export default function Camera() {
                   autoPlay
                   playsInline
                   muted
-                  className="h-full w-full rounded-2xl object-cover"
+                  className="h-full w-full rounded-2xl object-cover scale-x-[-1]"
                 />
                 <div className="absolute inset-0 rounded-2xl border-2 border-dashed border-white/50 pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 w-full rounded-b-2xl bg-[#4A6341]/80 p-4 text-center backdrop-blur-sm">
