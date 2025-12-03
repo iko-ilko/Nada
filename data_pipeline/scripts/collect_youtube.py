@@ -51,8 +51,8 @@ logger = logging.getLogger(__name__)
 
 # YouTube 채널 설정
 YOUTUBE_CHANNELS = [
-    # 테스트용 URL (실제 채널 추가)
-    "https://www.youtube.com/@muchelin1/videos",
+    # "https://www.youtube.com/@muchelin1/videos",
+    "https://www.youtube.com/@lamuqe_magicup/videos",
 ]
 
 
