@@ -1,0 +1,5 @@
+yt-dlp
+sqlalchemy
+langchain
+langchain-openai
+python-dotenv
