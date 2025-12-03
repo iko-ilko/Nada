@@ -32,7 +32,7 @@ def clean_subtitles(subtitle_text: str) -> str:
         if '-->' in line or re.search(r'<\d{2}:\d{2}:', line):
             continue
 
-        line = line.replace('&gt;', '').replace('[음악]', '')
+        line = line.replace('&gt;', '').replace('[음악]', '').replace('네.', '').replace('안녕하세요.', '')
         
         # 중복 제거
         if paragraphs and line == paragraphs[-1]:
