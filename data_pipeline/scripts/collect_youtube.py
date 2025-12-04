@@ -67,8 +67,6 @@ def process_video(
     Returns:
         True if successfully processed/stored, False otherwise
     """
-    logger.info(f"🔍 처리 중: {url}")
-
     # 1. 데이터 수집
     video_data = download_video_data(url)
     if not video_data:
@@ -172,6 +170,7 @@ def main():
             # 2단계: 각 영상 처리
             for video_url in video_urls:
                 stats["total"] += 1
+                logger.info(f"🔍 처리 시작 {stats['total']}/{len(video_urls)}: {video_url}")
                 try:
                     if process_video(video_url, session, llm):
                         stats["processed"] += 1
