@@ -51,9 +51,27 @@ logger = logging.getLogger(__name__)
 
 # YouTube 채널 설정
 YOUTUBE_CHANNELS = [
-    # "https://www.youtube.com/@muchelin1/videos",
-    "https://www.youtube.com/@lamuqe_magicup/videos",
+    # "https://www.youtube.com/@muchelin1/videos", # 남자 헤어
+    # "https://www.youtube.com/@lamuqe_magicup/videos", # 여자 뷰티
+    "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부)
 ]
+
+
+def get_video_id_from_url(url: str):
+    """
+    YouTube URL에서 video_id 추출
+
+    Args:
+        url: YouTube 영상 URL
+
+    Returns:
+        video_id 또는 None
+    """
+    try:
+        # https://www.youtube.com/watch?v=XXXXXXXXXX
+        return url.split('v=')[1].split('&')[0]
+    except Exception:
+        return None
 
 
 def process_video(
@@ -67,35 +85,40 @@ def process_video(
     Returns:
         True if successfully processed/stored, False otherwise
     """
-    # 1. 데이터 수집
-    video_data = download_video_data(url)
-    if not video_data:
-        logger.warning(f"1. ⚠️ 데이터 수집 실패: {url}")
+    # 1. URL에서 video_id 추출
+    video_id = get_video_id_from_url(url)
+    if not video_id:
+        logger.warning(f"1. ⚠️ 유효하지 않은 URL: {url}")
         return False
 
-    video_id = video_data["video_id"]
-    logger.info(f"   제목: {video_data['title']}")
-    logger.info(f"   URL: {video_data['url']}")
-
-    # 2. 중복 필터링 (DB ID 확인)
+    # 2. 중복 필터링 
     if video_exists_in_db(session, video_id):
         logger.info(f"2. 🔁 이미 존재하는 영상: {video_id}")
         return False
 
-    # 3. 자막 확인
+    # 3. 데이터 수집 
+    video_data = download_video_data(url)
+    if not video_data:
+        logger.warning(f"3. ⚠️ 데이터 수집 실패: {url}")
+        raise
+
+    logger.info(f"   제목: {video_data['title']}")
+    logger.info(f"   URL: {video_data['url']}")
+
+    # 4. 자막 확인
     if not video_data["has_subtitles"]:
-        logger.warning(f"3. 📝 자막 없음: {video_id}")
+        logger.warning(f"4. 📝 자막 없음: {video_id}")
         save_video(session, video_id, video_data, VideoStatus.NO_SUBTITLE)
         return False
 
-    # 4. 자막 정제
+    # 5. 자막 정제
     cleaned_subtitles = clean_subtitles(video_data["subtitles"])
     if not is_text_valid(cleaned_subtitles):
-        logger.warning(f"4. ❌ 정제된 텍스트 부족: {video_id}")
+        logger.warning(f"5. ❌ 정제된 텍스트 부족: {video_id}")
         save_video(session, video_id, video_data, VideoStatus.NO_SUBTITLE)
         return False
 
-    # 5. LLM 필터링 + 제목 개선
+    # 6. LLM 필터링 + 제목 개선
     logger.info(f"🤖 LLM 필터링 중: {video_id}")
     llm_result = filter_and_refine_title(
         title=video_data["title"],
@@ -104,22 +127,22 @@ def process_video(
     )
 
     if not llm_result:
-        logger.error(f"❌ LLM 필터링 실패: {video_id}")
+        logger.error(f"6. ❌ LLM 필터링 실패: {video_id}")
         save_video(session, video_id, video_data, VideoStatus.LLM_FILTER_FAILED)
         return False
 
-    # 6. LLM 판단 확인
+    # 7. LLM 판단 확인
     if not llm_result["is_relevant"]:
-        logger.info(f"6. ❌ 불필요한 콘텐츠: {llm_result['reason']}")
+        logger.info(f"7. ❌ 불필요한 콘텐츠: {llm_result['reason']}")
         save_video(session, video_id, video_data, VideoStatus.UNNECESSARY, reason=llm_result['reason'])
         return False
-    
+
     # llm_result = {
     # "is_relevant": True,
     # "reason": "reason",
     # "refined_title": "refined_title"}
 
-    # 7. DB 저장 (CLEANSED 상태)
+    # 8. DB 저장 (CLEANSED 상태)
     refined_title = llm_result.get("refined_title") or video_data["title"]
     logger.info(f"✅ 저장 완료")
 
