@@ -53,7 +53,8 @@ logger = logging.getLogger(__name__)
 YOUTUBE_CHANNELS = [
     # "https://www.youtube.com/@muchelin1/videos", # 남자 헤어
     # "https://www.youtube.com/@lamuqe_magicup/videos", # 여자 뷰티
-    "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부)
+    # "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부)
+    "https://www.youtube.com/@krtiger/videos" #윤곽
 ]
 
 
