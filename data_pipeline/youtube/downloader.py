@@ -3,6 +3,7 @@ yt-dlp를 활용한 YouTube 데이터 수집
 """
 import os
 import json
+import time
 import logging
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -10,6 +11,33 @@ from typing import Optional, Dict, Any
 from yt_dlp import YoutubeDL
 
 logger = logging.getLogger(__name__)
+
+
+def extract_info_retry(ydl: YoutubeDL, url: str, max_retries: int = 3, wait_time: int = 5) -> Dict[str, Any]:
+    """
+    extract_info를 재시도 로직과 함께 실행 (429 에러 대응)
+
+    Args:
+        ydl: YoutubeDL 인스턴스
+        url: YouTube 영상 URL
+        max_retries: 최대 시도 횟수
+        wait_time: 429 에러 시 대기 시간 (초)
+
+    Returns:
+        메타데이터
+
+    Raises:
+        Exception: 재시도 후에도 실패한 경우
+    """
+    for attempt in range(max_retries):
+        try:
+            return ydl.extract_info(url, download=True)
+        except Exception as e:
+            if "429" in str(e) and attempt < max_retries - 1:
+                logger.warning(f"⏳ 429 에러, {wait_time}초 대기 (시도 {attempt+1}/{max_retries})")
+                time.sleep(wait_time)
+            else:
+                raise
 
 
 def extract_video_urls(url: str) -> Optional[list[str]]:
@@ -94,7 +122,7 @@ def download_video_data(url: str, output_dir: str = None) -> Optional[Dict[str, 
             original_cwd = os.getcwd()
             os.chdir(output_dir)
             try:
-                metadata = ydl.extract_info(url, download=True)
+                metadata = extract_info_retry(ydl, url)
             finally:
                 os.chdir(original_cwd)
 
