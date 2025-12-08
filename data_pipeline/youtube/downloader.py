@@ -115,6 +115,8 @@ def download_video_data(url: str, output_dir: str = None) -> Optional[Dict[str, 
             'writeautomaticsub': True,
             'skip_download': True,
             'outtmpl': '%(id)s.%(ext)s',
+            'sleep_requests': 1,      # 모든 요청 사이 1초
+            'sleep_subtitles': 1,     # 자막 다운로드 전 1초
         }
 
         with YoutubeDL(ydl_opts) as ydl:
