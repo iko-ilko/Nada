@@ -20,6 +20,7 @@ class VideoStatus(str, Enum):
     UNNECESSARY = "unnecessary"
     CLEANSED = "cleansed"
     CHUNKED = "chunked"
+    YT_RATE_LIMIT = "yt_rate_limit"  # yt-dlp 429 에러 - 나중에 재시도
 
 
 class YouTubeVideo(Base):

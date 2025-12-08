@@ -1,4 +1,4 @@
-.PHONY: build run dev logs clean env
+.PHONY: build run dev logs clean env flow
 
 IMAGE_NAME := nada-data-pipeline
 CONTAINER_NAME := nada-data-pipeline-container
@@ -14,7 +14,7 @@ run:
 		$(IMAGE_NAME)
 
 dev:
-	python3 scripts/collect_youtube.py
+	python3 scripts/collect_youtube_with_channel.py
 
 logs:
 	tail -f logs/youtube_pipeline.log
@@ -23,3 +23,10 @@ clean:
 	docker stop $(CONTAINER_NAME) 2>/dev/null || true
 	docker rm $(CONTAINER_NAME) 2>/dev/null || true
 	docker rmi $(IMAGE_NAME) 2>/dev/null || true
+
+flow:
+	@echo "🚀 Starting Airflow..."
+	@echo "   Web UI: http://localhost:8080"
+	@echo "   Default: username=airflow, password=airflow"
+	airflow webserver --port 8080 & \
+	airflow scheduler

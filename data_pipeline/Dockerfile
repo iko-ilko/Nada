@@ -21,4 +21,4 @@ RUN mkdir -p logs
 RUN mkdir -p data
 
 # 스크립트 실행
-CMD ["python", "scripts/collect_youtube.py"]
+CMD ["python", "scripts/collect_youtube_with_channel.py"]

@@ -24,13 +24,10 @@ if not os.getenv('OPENAI_API_KEY'):
 # 경로 추가
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from data_pipeline.models import VideoStatus, init_db, get_session, video_exists_in_db, save_video
+from data_pipeline.models import init_db, get_session
 from data_pipeline.youtube import (
     extract_video_urls,
-    download_video_data,
-    clean_subtitles,
-    is_text_valid,
-    filter_and_refine_title
+    process_video
 )
 
 # 로깅 설정
@@ -53,8 +50,8 @@ logger = logging.getLogger(__name__)
 YOUTUBE_CHANNELS = [
     # "https://www.youtube.com/@muchelin1/videos", # 남자 헤어
     # "https://www.youtube.com/@lamuqe_magicup/videos", # 여자 뷰티
-    "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부) # 삭제하고 429 하나 있음. 왜 계속 429가 뜨지? -> 자막 서버는 별도의 서버라 엄격 할 수도있다는 의견.
-    # "https://www.youtube.com/@krtiger/videos" #윤곽 # 429, 자막없음 영상 많음 -> eng로 번역 또는 stt
+    # "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부) # 삭제하고 429 하나 있음. 왜 계속 429가 뜨지? -> 자막 서버는 별도의 서버라 엄격 할 수도있다는 의견.
+    "https://www.youtube.com/@krtiger/videos" #윤곽 # 429, 자막없음 영상 많음 -> eng로 번역 또는 stt
 ]
 
 
@@ -73,91 +70,6 @@ def get_video_id_from_url(url: str):
         return url.split('v=')[1].split('&')[0]
     except Exception:
         return None
-
-
-def process_video(
-    url: str,
-    session,
-    llm: ChatOpenAI
-) -> bool:
-    """
-    단일 영상 처리
-
-    Returns:
-        True if successfully processed/stored, False otherwise
-    """
-    # 1. URL에서 video_id 추출
-    video_id = get_video_id_from_url(url)
-    if not video_id:
-        logger.warning(f"1. ⚠️ 유효하지 않은 URL: {url}")
-        return False
-
-    # 2. 중복 필터링 
-    if video_exists_in_db(session, video_id):
-        logger.info(f"2. 🔁 이미 존재하는 영상: {video_id}")
-        return False
-
-    # 3. 데이터 수집 
-    video_data = download_video_data(url)
-    if not video_data:
-        logger.warning(f"3. ⚠️ 데이터 수집 실패: {url}")
-        raise
-
-    logger.info(f"   제목: {video_data['title']}")
-    logger.info(f"   URL: {video_data['url']}")
-
-    # 4. 자막 확인
-    if not video_data["has_subtitles"]:
-        logger.warning(f"4. 📝 자막 없음: {video_id}")
-        save_video(session, video_id, video_data, VideoStatus.NO_SUBTITLE)
-        return False
-
-    # 5. 자막 정제
-    cleaned_subtitles = clean_subtitles(video_data["subtitles"])
-    if not is_text_valid(cleaned_subtitles):
-        logger.warning(f"5. ❌ 정제된 텍스트 부족: {video_id}")
-        save_video(session, video_id, video_data, VideoStatus.NO_SUBTITLE)
-        return False
-
-    # 6. LLM 필터링 + 제목 개선
-    logger.info(f"🤖 LLM 필터링 중: {video_id}")
-    llm_result = filter_and_refine_title(
-        title=video_data["title"],
-        llm=llm,
-        description=video_data.get("description")
-    )
-
-    if not llm_result:
-        logger.error(f"6. ❌ LLM 필터링 실패: {video_id}")
-        save_video(session, video_id, video_data, VideoStatus.LLM_FILTER_FAILED)
-        return False
-
-    # 7. LLM 판단 확인
-    if not llm_result["is_relevant"]:
-        logger.info(f"7. ❌ 불필요한 콘텐츠: {llm_result['reason']}")
-        save_video(session, video_id, video_data, VideoStatus.UNNECESSARY, reason=llm_result['reason'])
-        return False
-
-    # llm_result = {
-    # "is_relevant": True,
-    # "reason": "reason",
-    # "refined_title": "refined_title"}
-
-    # 8. DB 저장 (CLEANSED 상태)
-    refined_title = llm_result.get("refined_title") or video_data["title"]
-    logger.info(f"✅ 저장 완료")
-
-    save_video(
-        session,
-        video_id,
-        video_data,
-        VideoStatus.CLEANSED,
-        title_refined=refined_title,
-        subtitles=cleaned_subtitles,
-        reason=llm_result['reason']
-    )
-
-    return True
 
 
 def main():
@@ -194,14 +106,20 @@ def main():
             # 2단계: 각 영상 처리
             for video_url in video_urls:
                 stats["total"] += 1
-                logger.info(f"🔍 처리 시작 {stats['total']}/{len(video_urls)}: {video_url}")
+                video_id = get_video_id_from_url(video_url)
+                if not video_id:
+                    logger.warning(f"🔍 처리 시작 {stats['total']}/{len(video_urls)}: ⚠️ 유효하지 않은 URL")
+                    stats["skipped"] += 1
+                    continue
+
+                logger.info(f"🔍 처리 시작 {stats['total']}/{len(video_urls)}: {video_id}")
                 try:
-                    if process_video(video_url, session, llm):
+                    if process_video(video_id, session, llm):
                         stats["processed"] += 1
                     else:
                         stats["skipped"] += 1
                 except Exception as e:
-                    logger.error(f"❌ 예외 발생: {str(e)}")
+                    logger.error(f"❌ 예외 발생 ({video_id}): {str(e)}")
                     stats["failed"] += 1
 
     except KeyboardInterrupt:

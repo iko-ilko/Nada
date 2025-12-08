@@ -13,6 +13,13 @@ from yt_dlp import YoutubeDL
 logger = logging.getLogger(__name__)
 
 
+def generate_url(video_id: str) -> str:
+    """
+    비디오 ID에서 YouTube URL 생성
+    """
+    return f"https://www.youtube.com/watch?v={video_id}"
+
+
 def extract_info_retry(ydl: YoutubeDL, url: str, max_retries: int = 3, wait_time: int = 5) -> Dict[str, Any]:
     """
     extract_info를 재시도 로직과 함께 실행 (429 에러 대응)
