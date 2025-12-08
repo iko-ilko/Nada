@@ -53,8 +53,8 @@ logger = logging.getLogger(__name__)
 YOUTUBE_CHANNELS = [
     # "https://www.youtube.com/@muchelin1/videos", # 남자 헤어
     # "https://www.youtube.com/@lamuqe_magicup/videos", # 여자 뷰티
-    # "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부)
-    "https://www.youtube.com/@krtiger/videos" #윤곽
+    "https://www.youtube.com/@una_only/videos" #여자 뷰티(윤곽 피부) # 삭제하고 429 하나 있음. 왜 계속 429가 뜨지? -> 자막 서버는 별도의 서버라 엄격 할 수도있다는 의견.
+    # "https://www.youtube.com/@krtiger/videos" #윤곽 # 429, 자막없음 영상 많음 -> eng로 번역 또는 stt
 ]
 
 
