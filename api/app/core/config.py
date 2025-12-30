@@ -29,10 +29,12 @@ class Config:
     NORMALIZE_EMBEDDINGS = True
 
     # LLM 설정
-    LLM_MODEL = "gpt-4o-mini"
+    LLM_MODEL = "gpt-5-mini"
+    # LLM_MODEL = "gemini-2.5-flash"
     MAKE_QUERY_TEMPERATURE = 0.0
     ANALYSIS_TEMPERATURE = 0.7
     OPENAI_API_KEY = os.environ["OPEN_API_KEY"]
+    GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
     if LLM_MODEL == "gpt-5-mini": # 후에 모델별 설정으로 바꾸기. 기본값 0.0 0.7 두고.
         MAKE_QUERY_TEMPERATURE = 1
         ANALYSIS_TEMPERATURE = 1
