@@ -119,7 +119,7 @@ def extract_json(content: str) -> Dict[str, Any]:
 
 def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_base64: str, user_query: str, make_query_prompt: str = None) -> Dict[str, Any]:
     """
-    이미지 분석과 3개의 검색 쿼리를 한 번의 API 호출로 동시 처리 (temperature=0.5)
+    이미지 분석과 3개의 검색 쿼리를 한 번의 API 호출로 동시 처리
 
     Args:
         vision_llm: Vision 능력이 있는 LLM 객체
@@ -139,7 +139,7 @@ def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_
         prompt_path = project_root / "app/core/prompt/make_query_ko.prt"
         make_query_prompt = prompt_path.read_text(encoding="utf-8")
 
-    # 프롬프트에 사용자 질문 삽입 (replace로 간단하게)
+    # 프롬프트에 사용자 질문 삽입
     combined_prompt = make_query_prompt.replace("{user_query}", user_query)
 
     message = HumanMessage(
@@ -174,12 +174,136 @@ def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_
     basic_info = result["image_analysis"]["basic_info"]
     result["search_queries"].append(basic_info)
 
-    logger.info(f"✅ 이미지 분석 + 4개 쿼리 생성 완료")
+    logger.info(f"✅ 이미지 분석 + {len(result['search_queries'])}개 쿼리 생성 완료")
     for i, query in enumerate(result["search_queries"], 1):
         logger.info(f"   - 쿼리{i}: {query}")
 
     return {
         "image_analysis": result["image_analysis"],
         "search_queries": result["search_queries"],
+        "total_tokens": total_tokens
+    }
+
+
+def analyze_image(vision_llm: BaseLanguageModel, image_base64: str, analyze_prompt: str = None) -> Dict[str, Any]:
+    """
+    이미지 분석만 수행
+
+    Args:
+        vision_llm: Vision 능력이 있는 LLM 객체
+        image_base64: Base64 인코딩된 이미지
+        analyze_prompt: 프롬프트 텍스트 (선택사항, analyze_image_ko.prt 내용)
+
+    Returns:
+        Dict: {
+            "image_analysis": {"basic_info": "...", "hair": "...", "skin": "...", "contour": "..."},
+            "total_tokens": int
+        }
+    """
+    # 프롬프트 로드
+    if analyze_prompt is None:
+        project_root = Path(os.environ.get('PROJECT_ROOT', Path.cwd()))
+        prompt_path = project_root / "app/core/prompt/analyze_image_ko.prt"
+        analyze_prompt = prompt_path.read_text(encoding="utf-8")
+
+    message = HumanMessage(
+        content=[
+            {"type": "text", "text": analyze_prompt},
+            {
+                "type": "image_url",
+                "image_url": {"url": f"data:image/jpeg;base64,{image_base64}"}
+            }
+        ]
+    )
+
+    # LLM 호출
+    response = vision_llm.invoke([message], temperature=Config.MAKE_QUERY_TEMPERATURE)
+
+    # 토큰 정보 추출
+    total_tokens = 0
+    if hasattr(response, 'response_metadata'):
+        usage = response.response_metadata.get('token_usage', {})
+        total_tokens = usage.get('total_tokens', 0)
+
+    # JSON 파싱
+    content = response.content
+    json_match = re.search(r'```json\s*(\{.*?\})\s*```', content, re.DOTALL)
+
+    if json_match:
+        result = json.loads(json_match.group(1))
+    else:
+        result = json.loads(content)
+
+    logger.info(f"✅ 이미지 분석 완료 (토큰: {total_tokens})")
+
+    return {
+        "image_analysis": result["image_analysis"],
+        "total_tokens": total_tokens
+    }
+
+
+def create_search_queries(vision_llm: BaseLanguageModel, image_analysis: Dict, user_query: str, make_query_prompt: str = None) -> Dict[str, Any]:
+    """
+    이미지 분석 결과를 바탕으로 검색 쿼리 생성
+
+    Args:
+        vision_llm: LLM 객체
+        image_analysis: 이미지 분석 결과
+        user_query: 사용자 질문
+        make_query_prompt: 프롬프트 텍스트 (선택사항, make_query_ko.prt 내용)
+
+    Returns:
+        Dict: {
+            "search_queries": ["쿼리1", "쿼리2", "쿼리3", "쿼리4"],
+            "total_tokens": int
+        }
+    """
+    # 프롬프트 로드
+    if make_query_prompt is None:
+        project_root = Path(os.environ.get('PROJECT_ROOT', Path.cwd()))
+        prompt_path = project_root / "app/core/prompt/make_query_ko.prt"
+        make_query_prompt = prompt_path.read_text(encoding="utf-8")
+
+    # 이미지 분석 결과를 텍스트로 변환
+    analysis_text = f"""- 기본 정보: {image_analysis.get('basic_info', '')}
+- 헤어: {image_analysis.get('hair', '')}
+- 피부: {image_analysis.get('skin', '')}
+- 윤곽: {image_analysis.get('contour', '')}"""
+
+    # 프롬프트에 이미지 분석 결과와 사용자 질문 삽입
+    combined_prompt = make_query_prompt.replace("{image_analysis}", analysis_text)
+    combined_prompt = combined_prompt.replace("{user_query}", user_query)
+
+    message = HumanMessage(content=[{"type": "text", "text": combined_prompt}])
+
+    # LLM 호출
+    response = vision_llm.invoke([message], temperature=Config.MAKE_QUERY_TEMPERATURE)
+
+    # 토큰 정보 추출
+    total_tokens = 0
+    if hasattr(response, 'response_metadata'):
+        usage = response.response_metadata.get('token_usage', {})
+        total_tokens = usage.get('total_tokens', 0)
+
+    # JSON 파싱
+    content = response.content
+    json_match = re.search(r'```json\s*(\{.*?\})\s*```', content, re.DOTALL)
+
+    if json_match:
+        result = json.loads(json_match.group(1))
+    else:
+        result = json.loads(content)
+
+    # basic_info를 기반으로 4번째 쿼리 생성 (나이대, 성별, 분위기)
+    basic_info = image_analysis.get("basic_info", "")
+    search_queries = result.get("search_queries", [])
+    search_queries.append(basic_info)
+
+    logger.info(f"✅ {len(search_queries)}개 검색 쿼리 생성 완료 (토큰: {total_tokens})")
+    for i, query in enumerate(search_queries, 1):
+        logger.info(f"   - 쿼리{i}: {query}")
+
+    return {
+        "search_queries": search_queries,
         "total_tokens": total_tokens
     }
