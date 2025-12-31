@@ -66,23 +66,34 @@ class AnalysisService:
             image_url = upload_result["secure_url"]
             logger.info(f"✅ 이미지 업로드 완료: {image_url}")
 
-            # 2. 이미지 분석 + 3개 검색 쿼리 생성 (1회 API 호출)
-            logger.info("🔍 이미지 분석 및 검색 쿼리 생성 중...")
-            from app.core.vision import analyze_image_and_create_multi_queries
+            # 2. 이미지 분석 (1회 API 호출)
+            logger.info("🔍 이미지 분석 중...")
+            from app.core.vision import analyze_image, create_search_queries
 
             import base64
             image_base64 = base64.b64encode(image_data).decode('utf-8')
 
-            result = analyze_image_and_create_multi_queries(
+            # 2-1. 이미지 분석
+            analyze_result = analyze_image(
                 vision_llm=self.llm,
-                image_base64=image_base64,
+                image_base64=image_base64
+            )
+            image_analysis = analyze_result["image_analysis"]
+            analyze_tokens = analyze_result.get("total_tokens", 0)
+            logger.info(f"✅ 이미지 분석 완료 (토큰: {analyze_tokens})")
+
+            # 2-2. 검색 쿼리 생성 (2회 API 호출)
+            logger.info("🔍 검색 쿼리 생성 중...")
+            query_result = create_search_queries(
+                vision_llm=self.llm,
+                image_analysis=image_analysis,
                 user_query=request.user_state,
                 make_query_prompt=self.make_query_prompt
             )
-            image_analysis = result["image_analysis"]
-            search_queries = result["search_queries"]
-            make_query_tokens = result.get("total_tokens", 0)
-            logger.info(f"✅ {len(search_queries)}개 검색 쿼리 생성 완료")
+            search_queries = query_result["search_queries"]
+            query_tokens = query_result.get("total_tokens", 0)
+            make_query_tokens = analyze_tokens + query_tokens
+            logger.info(f"✅ {len(search_queries)}개 검색 쿼리 생성 완료 (토큰: {query_tokens})")
 
             # 3. BM25 리트리버 초기화 (필요시)
             if self.bm25_retriever is None:
