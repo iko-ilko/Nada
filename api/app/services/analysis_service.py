@@ -82,14 +82,14 @@ class AnalysisService:
             image_analysis = result["image_analysis"]
             search_queries = result["search_queries"]
             make_query_tokens = result.get("total_tokens", 0)
-            logger.info(f"✅ {len(search_queries)}개 검색 쿼리 생성 완료")
+            logger.info(f"✅ 카테고리별 검색 쿼리 생성 완료 (헤어, 피부, 윤곽)")
 
             # 3. BM25 리트리버 초기화 (필요시)
             if self.bm25_retriever is None:
                 self.bm25_retriever = rag.initialize_bm25_retriever(self.db_manager)
 
-            # 4. 하이브리드 검색 (4개 쿼리로 8회 검색: Dense k=5 + BM25 k=5)
-            logger.info(f"🔍 하이브리드 검색 시작... ({len(search_queries)}개 쿼리)")
+            # 4. 하이브리드 검색 (3개 카테고리 쿼리: Dense k=5 + BM25 k=5)
+            logger.info(f"🔍 하이브리드 검색 시작... (헤어, 피부, 윤곽)")
             search_results, rrf_scores, search_metadata, detailed_search_logs = rag.perform_hybrid_search(
                 self.db_manager,
                 self.bm25_retriever,

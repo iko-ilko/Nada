@@ -170,17 +170,17 @@ def analyze_image_and_create_multi_queries(vision_llm: BaseLanguageModel, image_
     else:
         result = json.loads(content)
 
-    # basic_info를 기반으로 4번째 쿼리 생성 (나이대, 성별, 분위기)
-    basic_info = result["image_analysis"]["basic_info"]
-    result["search_queries"].append(basic_info)
+    # 딕셔너리 그대로 사용
+    search_queries = result.get("search_queries", {})
 
-    logger.info(f"✅ 이미지 분석 + {len(result['search_queries'])}개 쿼리 생성 완료")
-    for i, query in enumerate(result["search_queries"], 1):
-        logger.info(f"   - 쿼리{i}: {query}")
+    logger.info(f"✅ 이미지 분석 + 카테고리별 쿼리 생성 완료")
+    logger.info(f"   - 헤어: {search_queries.get('hair', '')}")
+    logger.info(f"   - 피부: {search_queries.get('skin', '')}")
+    logger.info(f"   - 윤곽: {search_queries.get('contour', '')}")
 
     return {
         "image_analysis": result["image_analysis"],
-        "search_queries": result["search_queries"],
+        "search_queries": search_queries,
         "total_tokens": total_tokens
     }
 

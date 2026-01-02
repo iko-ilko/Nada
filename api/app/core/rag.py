@@ -81,7 +81,7 @@ def initialize_bm25_retriever(db_manager):
 def perform_hybrid_search(
     db_manager,
     bm25_retriever,
-    queries: List[str]
+    queries: Dict[str, str]
 ) -> Tuple[List, Dict[str, float], List[Dict[str, Any]], List[Dict[str, Any]]]:
     """
     여러 쿼리로 Dense + BM25 하이브리드 검색 수행 (상세 로깅 포함)
@@ -89,7 +89,7 @@ def perform_hybrid_search(
     Args:
         db_manager: VectorStoreManager 인스턴스
         bm25_retriever: BM25 리트리버 (None 가능)
-        queries: 검색 쿼리 리스트 (e.g., ["쿼리1", "쿼리2", "쿼리3", "기본정보 기반 쿼리"])
+        queries: 검색 쿼리 딕셔너리 (e.g., {"hair": "...", "skin": "...", "contour": "..."})
 
     Returns:
         tuple: (search_results, rrf_scores, search_metadata, detailed_search_logs)
@@ -102,12 +102,12 @@ def perform_hybrid_search(
     # 상세 로깅용: 쿼리별 결과
     detailed_search_logs = []
 
-    # 모든 쿼리로 검색 (반복문으로 동적 처리)
-    for query_idx, q in enumerate(queries, 1):
-        logger.info(f"   [쿼리{query_idx}] {q[:60]}...")
+    # 모든 쿼리로 검색
+    for category, query in queries.items():
+        logger.info(f"   [{category}] {query[:60]}...")
 
         # Dense 검색
-        dense_docs_with_scores = db_manager.vectorstore.similarity_search_with_score(q, k=5)
+        dense_docs_with_scores = db_manager.vectorstore.similarity_search_with_score(query, k=5)
         dense_docs = [doc for doc, score in dense_docs_with_scores]
         dense_all.extend(dense_docs)
 
@@ -126,7 +126,7 @@ def perform_hybrid_search(
         # BM25 검색
         query_sparse_results = []
         if bm25_retriever:
-            sparse_docs = bm25_retriever.invoke(q)
+            sparse_docs = bm25_retriever.invoke(query)
             sparse_all.extend(sparse_docs)
             for rank, doc in enumerate(sparse_docs, 1):
                 source_key = doc.metadata.get("source", str(hash(doc.page_content)))
@@ -140,8 +140,8 @@ def perform_hybrid_search(
 
         # 쿼리별 결과 기록
         detailed_search_logs.append({
-            "query_index": query_idx,
-            "query_text": q,
+            "category": category,
+            "query_text": query,
             "dense_results": query_dense_results,
             "bm25_results": query_sparse_results
         })
